@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { JumbtronComponent } from './jumbtron/jumbtron.component';
 import { ModelosComponent } from './modelos/modelos.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ModelosComponent } from './modelos/modelos.component';
     AppComponent,
     NavbarComponent,
     JumbtronComponent,
-    ModelosComponent
+    ModelosComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
