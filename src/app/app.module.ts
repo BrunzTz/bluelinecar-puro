@@ -1,36 +1,28 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { JumbtronComponent } from './jumbtron/jumbtron.component';
-import { ModelosComponent } from './modelos/modelos.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CadastroComponent } from './pages/cadastro/cadastro.component';
-import { routes } from './app-routing.module';
-import { RouterModule } from '@angular/router';
+import { AppRouting } from './app.routing';
+import { AppComponent } from './app.component';
+import { PagesModule } from './pages/pages.module';
+import { SharedModule } from './shared/shared.module';
+import { UtilsModule } from './utils/utils.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    JumbtronComponent,
-    ModelosComponent,
-    FooterComponent,
-    HomeComponent,
-    CadastroComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     NgbModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(AppRouting),
+    UtilsModule,
+    SharedModule,
+    PagesModule,
     BsDropdownModule.forRoot()
   ],
   providers: [],
