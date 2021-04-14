@@ -19,7 +19,7 @@
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
-            <img class="navbar-brand logo-size" src="./assets/images/logo.png" alt="">
+            <img class="navbar-brand logo-size" src="../../assets/images/logo.png" alt="">
 
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
         <div class="container">
             
             <!-- Listagem de Vendedores -->
-            <h1>Vendedores</h1>
+            <h1 style="color: black">Vendedores</h1>
 
         </div>
         

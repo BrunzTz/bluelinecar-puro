@@ -45,21 +45,19 @@
                     </div>
                     
                     <div>
-                        <div class="btn-group mr-3" dropdown>
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Ações
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="./Pages/vendedores/list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="#">Clientes</a>
-                                        <a class="dropdown-item" href="#">Veículos</a>
+                        <div class="btn-group mr-3">
+                            <div class="dropdown ">
+                                <button class="btn btn-primary dropdown-toggle size-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ações
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="./Pages/vendedores/list.php">Vendedores</a>
+                                    <a class="dropdown-item" href="#">Clientes</a>
+                                    <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Vendas</a>
-                                    </div>
-                                </li>
-                            </ul>
+                                    <a class="dropdown-item" href="#">Vendas</a>
+                                </div>
+                            </div>
                         </div>
 
                         <a href="./Pages/login/login.php" class="btn btn-success size-button" type="submit">Login</a>
