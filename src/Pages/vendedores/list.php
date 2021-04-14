@@ -7,10 +7,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="./style/index/index.css">
-        <link rel="stylesheet" href="./style/navbar/navbar.css">
-        <link rel="stylesheet" href="./style/modelos/modelos.css">
-        <link rel="stylesheet" href="./style/footer/footer.css">
+        <link rel="stylesheet" href="../../style/index/index.css">
+        <link rel="stylesheet" href="../../style/navbar/navbar.css">
+        <link rel="stylesheet" href="../../style/modelos/modelos.css">
+        <link rel="stylesheet" href="../../style/footer/footer.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -30,7 +30,7 @@
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="./index.php">Home<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="../../index.php">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item mr-3">
                                 <a class="nav-link" href="#">Modelos</a>
@@ -52,7 +52,7 @@
                                         Ações
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="./Pages/vendedores/list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="list.php">Vendedores</a>
                                         <a class="dropdown-item" href="#">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
@@ -62,7 +62,7 @@
                             </ul>
                         </div>
 
-                        <a href="./Pages/login/login.php" class="btn btn-success size-button" type="submit">Login</a>
+                        <a href="../login/login.php" class="btn btn-success size-button" type="submit">Login</a>
                     </div>
                 </div>
                 
@@ -72,15 +72,14 @@
 
         <!-- Content -->
         <div class="container">
-            <!-- Jumbotron -->
-            <?php include 'shared/jumbotron/jumbotron.php'; ?>
-    
-            <!-- Modelos -->
-            <?php include 'shared/modelos/modelos.php'; ?>
+            
+            <!-- Listagem de Vendedores -->
+            <h1>Vendedores</h1>
+
         </div>
         
         <!-- Footer -->
-        <?php require 'shared/footer/footer.php'; ?>
+        <?php require '../../shared/footer/footer.php'; ?>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
