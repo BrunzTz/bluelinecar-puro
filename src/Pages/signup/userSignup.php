@@ -1,17 +1,5 @@
-<?php
-    include '../../Database/config.php';
-
-    $pdo = new Connect;
-    $res = $pdo->prepare("SELECT * FROM vendedor");
-    $res->execute();
-    $vendedores = $res->fetchAll(PDO::FETCH_ASSOC);
-
-?>
-
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,15 +7,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="../../style/index/index.css">
         <link rel="stylesheet" href="../../style/navbar/navbar.css">
+        <link rel="stylesheet" href="../../style/modelos/modelos.css">
         <link rel="stylesheet" href="../../style/footer/footer.css">
-        <link rel="stylesheet" href="style/list.scss">
+        <link rel="stylesheet" href="../../style/signup/userSignup.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Signup</title>
     </head>
-
     <body>
 
-        <!-- Navbar -->
+        <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
             <img class="navbar-brand logo-size" src="../../assets/images/logo.png" alt="">
 
@@ -58,11 +46,11 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ações
-                                    </button>
+                                    </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="#">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
@@ -71,7 +59,7 @@
                                 </li>
                             </ul>
                         </div>
-
+                        
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
@@ -86,6 +74,7 @@
                                 </li>
                             </ul>
                         </div>
+                        
                     </div>
                 </div>
                 
@@ -93,55 +82,96 @@
             
         </nav>
 
-        <!-- Content -->
+        <!--Formulário-->
         <div class="container">
+            <div class="row justify-content-md-center">
+                <form class="col-10 formulario">
+                    
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="nome">Nome Completo</label>
+                        <input type="text" id="nome" class="form-control" required/>
+                    </div>
+
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="cpf">Seu CPF</label>
+                        <input type="text" id="cpf" class="form-control" required/>  
+                    </div>
+
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="rg">Seu RG</label>
+                        <input type="text" id="rg" class="form-control" required/>               
+                    </div>
+
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="endereco">Endereço</label>
+                        <input type="text" id="endereco" class="form-control" required/>
+                    </div>
+
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="cidade">Cidade</label>
+                        <input type="text" id="cidade" class="form-control" required/>
+                    </div>
+
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="estado">Estado</label>
+                        <select class="custom-select" id="estado" required>
+                            <option selected>Escolher...</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SE">SE</option>
+                            <option value="SP">SP</option>
+                            <option value="TO">TO</option>
+                        </select>
+                    </div>
+                
+                    <!-- Email input -->
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required/>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="senha">Senha</label>
+                        <input type="password" id="senha" class="form-control" required/>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg m-4">Cadastrar-se</button>
+                </form>
             
-            <!-- Listagem de Vendedores -->
-            <div class="text-main size-list">Vendedores</div>
-
-            <div class="button-novo-registro">
-                <a href="./cadastro.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
             </div>
-
-            <table class="table table-striped">
-                <thead class="table-primary">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">CPF</th>
-                        <th scope="col">Email</th>
-                        <th scope="col" class="text-center" width="100">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($vendedores as $vendedor) { ?>
-                        <tr>
-                            <td><?php echo $vendedor["codigo"]; ?></td>
-                            <td><?php echo $vendedor["nome"]; ?></td>
-                            <td><?php echo $vendedor["cpf"]; ?></td>
-                            <td><?php echo $vendedor["email"]; ?></td>
-                            <td width="200">
-                                <div class="acoes-flex-button">
-                                    <?php echo "<a href='./atualizacao.php?id={$vendedor['codigo']}' class='btn btn-warning'>Atualizar</a>"; ?>
-                                    <?php echo "<a href='./exclusao.php?id={$vendedor['codigo']}' class='btn btn-danger'>Excluir</a>"; ?>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-
         </div>
-        
-        <div class="fixed-button-bottom">
-            <!-- Footer -->
-            <?php require '../../shared/footer/footer.php'; ?>
-        </div>
+
+        <!--footer-->
+        <?php
+            require '../../shared/footer/footer.php';
+        ?>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
     </body>
-
 </html>

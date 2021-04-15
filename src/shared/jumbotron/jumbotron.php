@@ -3,5 +3,5 @@
     <p class="lead text-dark">Precisa realizar a compra de algum veículo novo ou deseja conhecer nossos modelos de carro que seja sua cara? Encontre em contato conosco.</p>
     <hr class="my-4 text-dark">
     <p class="text-dark">Caso deseje realizar uma compra, ou se cadastrar em nosso site. Clique no botão abaixo:</p>
-    <a class="btn btn-primary btn-lg" routerLink="signup" role="button">Cadastre-se</a>
+    <a class="btn btn-primary btn-lg" href="./Pages/signup/userSignup.php" role="button">Cadastre-se</a>
 </div>
