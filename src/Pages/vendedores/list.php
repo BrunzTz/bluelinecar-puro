@@ -1,3 +1,13 @@
+<?php
+    include '../../Database/config.php';
+
+    $pdo = new Connect;
+    $res = $pdo->prepare("SELECT * FROM vendedor");
+    $res->execute();
+    $vendedores = $res->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="pt-br">
@@ -9,8 +19,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="../../style/index/index.css">
         <link rel="stylesheet" href="../../style/navbar/navbar.css">
-        <link rel="stylesheet" href="../../style/modelos/modelos.css">
         <link rel="stylesheet" href="../../style/footer/footer.css">
+        <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -74,12 +84,46 @@
         <div class="container">
             
             <!-- Listagem de Vendedores -->
-            <h1 style="color: black">Vendedores</h1>
+            <div class="text-main size-list">Vendedores</div>
+
+            <div class="button-novo-registro">
+                <a href="./cadastro.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
+            </div>
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Email</th>
+                        <th scope="col" class="text-center" width="100">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($vendedores as $vendedor) { ?>
+                        <tr>
+                            <td><?php echo $vendedor["codigo"]; ?></td>
+                            <td><?php echo $vendedor["nome"]; ?></td>
+                            <td><?php echo $vendedor["cpf"]; ?></td>
+                            <td><?php echo $vendedor["email"]; ?></td>
+                            <td width="200">
+                                <div class="acoes-flex-button">
+                                    <?php echo "<a href='./atualizacao.php?id={$vendedor['codigo']}' class='btn btn-warning'>Atualizar</a>"; ?>
+                                    <?php echo "<a href='./exclusao.php?id={$vendedor['codigo']}' class='btn btn-danger'>Excluir</a>"; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 
         </div>
         
-        <!-- Footer -->
-        <?php require '../../shared/footer/footer.php'; ?>
+        <div class="fixed-button-bottom">
+            <!-- Footer -->
+            <?php require '../../shared/footer/footer.php'; ?>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
