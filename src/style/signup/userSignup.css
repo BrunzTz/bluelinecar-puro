@@ -1,7 +1,33 @@
 .formulario {
   border-radius: 1rem;
   border: 2px solid rgba(128, 128, 128, 0.615);
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
   -webkit-box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.815);
           box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.815);
+}
+
+.container-login{
+  /* background: linear-gradient(to right, #1e3c72, #2a5298); */
+  background: url('../../assets/images/back-login.jpg');
+  display: table;
+  width: 100vw;
+  height: 100vh;
+}
+
+.content-login {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.logo-login{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 20px;
 }
 /*# sourceMappingURL=userSignup.css.map */
