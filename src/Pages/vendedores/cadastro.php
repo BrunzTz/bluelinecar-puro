@@ -105,7 +105,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="#">Clientes</a>
+                                        <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>

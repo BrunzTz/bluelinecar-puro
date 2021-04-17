@@ -1,0 +1,34 @@
+.text-main{
+    border-bottom: 2px solid #2a5298;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+
+.size-list{
+    width: 230px;
+}
+.size-cadastro{
+    width: 430px;
+}
+
+.acoes-flex-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.button-novo-registro{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fixed-button-bottom{
+    position: fixed;
+    bottom: 2px;
+}

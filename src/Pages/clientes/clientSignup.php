@@ -67,7 +67,7 @@
             $res->execute();
     
             if ($res) {
-                header("Location: ./userList.php");
+                header("Location: ./clientList.php");
             } else {
                 echo "Erro ao executar o SQL";
             }
@@ -131,7 +131,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../../Pages/vendedores/list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="../../Pages/user/userList.php">Clientes</a>
+                                        <a class="dropdown-item" href="../../Pages/cliente/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
@@ -165,7 +165,7 @@
         <!--Formulário-->
         <div class="container">
             <div class="row justify-content-md-center">
-                <form class="col-10 formulario" method="POST" action="./userSignup.php">
+                <form class="col-10 formulario" method="POST" action="./clientSignup.php">
                     
                     <div class="form-outline m-4">
                         <label class="form-label" for="nome">Nome Completo</label>

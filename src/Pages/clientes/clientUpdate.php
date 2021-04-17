@@ -6,19 +6,19 @@
         $id = $_REQUEST['id'];
 
         $pdo = new Connect;
-        $res = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :id");
+        $res = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
         $res->bindValue(":id", $id);
         $res->execute();
-        $vendedor = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($vendedor);
+        $cliente = $res->fetch(PDO::FETCH_ASSOC);
+        print_r($cliente);
 
-        if (!$vendedor) {
-            echo "<p>Vendedor não encontrado, volte a listagem</p>";
-            echo "<a href='./list.php'>Listagem de vendedores</a>";
+        if (!$cliente) {
+            echo "<p>Cliente não encontrado, volte a listagem</p>";
+            echo "<a href='./list.php'>Listagem de clientes</a>";
         }
 
     } else {
-        header("Location: ./list.php");
+        header("Location: ./clientlist.php");
     }
 ?>
 
@@ -77,7 +77,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
+                                        <a class="dropdown-item" href="./clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
@@ -97,29 +97,74 @@
         <!-- Content -->
         <div class="container">
         
-        <div class="text-main size-cadastro">Atualizar Vendedor</div>
+        <div class="text-main size-cadastro">Atualizar Cliente</div>
             
             <!-- Cadastro de Vendedores -->
-            <form action="salvar.php?id=<?php echo $id; ?>" method="post">
+            <form action="salvarUpdate.php?id=<?php echo $id; ?>" method="post">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $vendedor['nome'] ?>" placeholder="José" required>
+                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $cliente['nome'] ?>" placeholder="José" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $vendedor['cpf'] ?>" name="cpf" required>
+                    <input type="text" class="form-control" id="cpf" value="<?php echo $cliente['cpf'] ?>" name="cpf" required>
                 </div>
                 <div class="mb-3">
+                    <label for="rg" class="form-label">RG</label>
+                    <input type="text" class="form-control" id="rg" value="<?php echo $cliente['rg'] ?>" name="rg" required>
+                </div>
+                <div class="mb-3">
+                    <label for="endereco" class="form-label">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" value="<?php echo $cliente['endereco'] ?>" name="endereco" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" id="cidade" value="<?php echo $cliente['cidade'] ?>" name="cidade" required>
+                </div>
+                <div class="mb-3">
+                        <label class="form-label" for="estado">Estado</label>
+                        <select class="custom-select" id="estado" name="estado" required>
+                            <option selected>Escolher...</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SE">SE</option>
+                            <option value="SP">SP</option>
+                            <option value="TO">TO</option>
+                        </select>
+                    </div>
+                <div class="mb-3">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" value="<?php echo $vendedor['senha'] ?>" name="senha" required>
+                    <input type="password" class="form-control" id="senha" value="<?php echo $cliente['senha'] ?>" name="senha" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $vendedor['email'] ?>" name="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="email" value="<?php echo $cliente['email'] ?>" name="email" placeholder="name@example.com" required>
                 </div>
 
-                <input type="submit" class="btn btn-success mb-3" value="Salvar" name="btnEditar" id="btnEditar">
-                <a href="./list.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
+                <input type="submit" class="btn btn-success mb-3" value="Salvar" name="btnEditarCliente" id="btnEditarCliente">
+                <a href="./clientList.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
             </form>
 
         </div>

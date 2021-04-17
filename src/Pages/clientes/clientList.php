@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="../../style/index/index.css">
         <link rel="stylesheet" href="../../style/navbar/navbar.css">
         <link rel="stylesheet" href="../../style/footer/footer.css">
-        <link rel="stylesheet" href="style/list.scss">
+        <link rel="stylesheet" href="style/clientList.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -103,12 +103,13 @@
             <div class="text-main size-list">Clientes</div>
 
             <div class="button-novo-registro">
-                <a href="./userSignup.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
+                <a href="./clientSignup.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
             </div>
 
             <table class="table table-striped">
                 <thead class="table-primary">
                     <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Nome</th>
                         <th scope="col">RG</th>
                         <th scope="col">CPF</th>
@@ -119,14 +120,15 @@
                 <tbody>
                     <?php foreach ($clientes as $cliente) { ?>
                         <tr>
+                            <td><?php echo $cliente["id"]; ?></td>
                             <td><?php echo $cliente["nome"]; ?></td>
                             <td><?php echo $cliente["rg"]; ?></td>
                             <td><?php echo $cliente["cpf"]; ?></td>
                             <td><?php echo $cliente["email"]; ?></td>
                             <td width="200">
                                 <div class="acoes-flex-button">
-                                    <?php echo "<a href='./atualizacao.php?id={$vendedor['codigo']}' class='btn btn-warning'>Atualizar</a>"; ?>
-                                    <?php echo "<a href='./exclusao.php?id={$vendedor['codigo']}' class='btn btn-danger'>Excluir</a>"; ?>
+                                    <?php echo "<a href='./clientUpdate.php?id={$cliente['id']}' class='btn btn-warning'>Atualizar</a>"; ?>
+                                    <?php echo "<a href='./clientDelete.php?id={$cliente['id']}' class='btn btn-danger'>Excluir</a>"; ?>
                                 </div>
                             </td>
                         </tr>
