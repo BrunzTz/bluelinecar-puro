@@ -1,3 +1,12 @@
+<?php
+    
+    include './Pages/login/validateUser.php';
+    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
+    session_start();
+    validarIndex();
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="pt-br">
@@ -52,7 +61,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="./Pages/vendedores/list.php">Vendedores</a>
-                                    <a class="dropdown-item" href="#">Clientes</a>
+                                    <a class="dropdown-item" href="./Pages/user/userList.php">Clientes</a>
                                     <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Vendas</a>
@@ -67,9 +76,7 @@
                                         Login
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                                        <a class="dropdown-item" href="./Pages/login/loginSeller.php">Vendedores</a>
-                                    <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="./Pages/login/loginUser.php">Clientes</a>
+                                        <a class="dropdown-item" href="./Pages/login/loginUser.php">Vendedores</a>
                                     </div>
                                 </li>
                             </ul>

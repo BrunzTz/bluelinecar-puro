@@ -1,5 +1,22 @@
+<?php
+    include '../../Database/config.php';
+
+    $pdo = new Connect;
+    $res = $pdo->prepare("SELECT * FROM cliente");
+    $res->execute();
+    $clientes = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    include '../login/validateUser.php';
+    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
+    session_start();
+    validarList();
+
+?>
+
 <!DOCTYPE html>
+
 <html lang="pt-br">
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +24,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="../../style/index/index.css">
         <link rel="stylesheet" href="../../style/navbar/navbar.css">
-        <link rel="stylesheet" href="../../style/modelos/modelos.css">
         <link rel="stylesheet" href="../../style/footer/footer.css">
-        <link rel="stylesheet" href="../../style/signup/userSignup.css">
+        <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Login</title>
+        <title>Bluelinecar</title>
     </head>
+
     <body>
 
-        <!--Navbar-->
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
             <img class="navbar-brand logo-size" src="../../assets/images/logo.png" alt="">
 
@@ -51,7 +68,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="#">Clientes</a>
+                                        <a class="dropdown-item" href="./userList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
@@ -67,9 +84,7 @@
                                         Login
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                                        <a class="dropdown-item" href="./loginSeller.php">Vendedores</a>
-                                    <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="./loginUser.php">Clientes</a>
+                                        <a class="dropdown-item" href="../login/loginUser.php">Vendedores</a>
                                     </div>
                                 </li>
                             </ul>
@@ -81,42 +96,55 @@
             
         </nav>
 
-        <!--Formulário-->
+        <!-- Content -->
         <div class="container">
-            <div class="row justify-content-md-center">
-                <form class="col-10 formulario">
-                
-                    <!-- Email input -->
-                    <div class="form-outline m-4">
-                        <label class="form-label" for="email">Código</label>
-                        <input type="email" id="email" class="form-control" required/>
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-outline m-4">
-                        <label class="form-label" for="senha">Senha</label>
-                        <input type="password" id="senha" class="form-control" required/>
-                    </div>
-
-                    <div class="custom-control custom-checkbox m-4">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Lembrar usuário e senha</label>
-                    </div>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg mb-4 mr-4 ml-4">Login</button>
-                </form>
             
-            </div>
-        </div>
+            <!-- Listagem de Vendedores -->
+            <div class="text-main size-list">Clientes</div>
 
-        <!--footer-->
-        <?php
-            require '../../shared/footer/footer.php';
-        ?>
+            <div class="button-novo-registro">
+                <a href="./userSignup.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
+            </div>
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">RG</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Email</th>
+                        <th scope="col" class="text-center" width="100">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($clientes as $cliente) { ?>
+                        <tr>
+                            <td><?php echo $cliente["nome"]; ?></td>
+                            <td><?php echo $cliente["rg"]; ?></td>
+                            <td><?php echo $cliente["cpf"]; ?></td>
+                            <td><?php echo $cliente["email"]; ?></td>
+                            <td width="200">
+                                <div class="acoes-flex-button">
+                                    <?php echo "<a href='./atualizacao.php?id={$vendedor['codigo']}' class='btn btn-warning'>Atualizar</a>"; ?>
+                                    <?php echo "<a href='./exclusao.php?id={$vendedor['codigo']}' class='btn btn-danger'>Excluir</a>"; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+        
+        <div class="fixed-button-bottom">
+            <!-- Footer -->
+            <?php require '../../shared/footer/footer.php'; ?>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     </body>
+
 </html>

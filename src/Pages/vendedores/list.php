@@ -6,6 +6,11 @@
     $res->execute();
     $vendedores = $res->fetchAll(PDO::FETCH_ASSOC);
 
+    include '../login/validateUser.php';
+    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
+    session_start();
+    validarList();
+
 ?>
 
 <!DOCTYPE html>
@@ -58,12 +63,12 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ações
-                                    </button>
+                                    </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="#">Clientes</a>
+                                        <a class="dropdown-item" href="../../Pages/vendedores/list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../../Pages/user/userList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
@@ -75,13 +80,11 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="btn btn-success dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-success dropdown-toggle size-button" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Login
-                                    </a>
+                                    </button>
                                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                                        <a class="dropdown-item" href="../login/loginSeller.php">Vendedores</a>
-                                    <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../login/loginUser.php">Clientes</a>
+                                        <a class="dropdown-item" href="../login/loginUser.php">Vendedores</a>
                                     </div>
                                 </li>
                             </ul>

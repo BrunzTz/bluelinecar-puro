@@ -1,3 +1,83 @@
+<?php
+   include '../../Database/config.php';
+
+    if (isset($_REQUEST['btnCadastrar'])) {
+        
+        $erro = 0;
+    
+        if (isset($_REQUEST['nome']) && !empty($_REQUEST['nome'])) {
+            $nome = $_REQUEST['nome'];
+        } else {
+            $erro = 1;
+        }
+
+        if (isset($_REQUEST['rg']) && !empty($_REQUEST['rg'])) {
+            $rg = $_REQUEST['rg'];
+        } else {
+            $erro = 1;
+        }
+        
+        if (isset($_REQUEST['cpf']) && !empty($_REQUEST['cpf'])) {
+            $cpf = $_REQUEST['cpf'];
+        } else {
+            $erro = 1;
+        }
+
+        if (isset($_REQUEST['endereco']) && !empty($_REQUEST['endereco'])) {
+            $endereco = $_REQUEST['endereco'];
+        } else {
+            $erro = 1;
+        }
+
+        if (isset($_REQUEST['cidade']) && !empty($_REQUEST['cidade'])) {
+            $cidade = $_REQUEST['cidade'];
+        } else {
+            $erro = 1;
+        }
+
+        if (isset($_REQUEST['estado']) && !empty($_REQUEST['estado'])) {
+            $estado = $_REQUEST['estado'];
+        } else {
+            $erro = 1;
+        }
+    
+        if (isset($_REQUEST['senha']) && !empty($_REQUEST['senha'])) {
+            $senha = $_REQUEST['senha'];
+        } else {
+            $erro = 1;
+        }
+    
+        if (isset($_REQUEST['email']) && !empty($_REQUEST['email'])) {
+            $email = $_REQUEST['email'];
+        } else {
+            $erro = 1;
+        }
+
+        if (!$erro) {
+            $pdo = new Connect;
+            $res = $pdo->prepare("INSERT INTO cliente (nome, cpf, rg, endereco, cidade, estado, email, senha) VALUES (:nome, :cpf, :rg, :endereco, :cidade, :estado, :email, :senha)");
+            $res->bindValue(":nome", $nome);
+            $res->bindValue(":cpf", $cpf);
+            $res->bindValue(":rg", $rg);
+            $res->bindValue(":endereco", $endereco);
+            $res->bindValue(":cidade", $cidade);
+            $res->bindValue(":estado", $estado);
+            $res->bindValue(":senha", $senha);
+            $res->bindValue(":email", $email);
+            $res->execute();
+    
+            if ($res) {
+                header("Location: ./userList.php");
+            } else {
+                echo "Erro ao executar o SQL";
+            }
+        } else {
+            echo "Erro nos dados. Falta algum valor";
+        }
+    
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -50,8 +130,8 @@
                                         Ações
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="#">Clientes</a>
+                                        <a class="dropdown-item" href="../../Pages/vendedores/list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../../Pages/user/userList.php">Clientes</a>
                                         <a class="dropdown-item" href="#">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
@@ -85,36 +165,36 @@
         <!--Formulário-->
         <div class="container">
             <div class="row justify-content-md-center">
-                <form class="col-10 formulario">
+                <form class="col-10 formulario" method="POST" action="./userSignup.php">
                     
                     <div class="form-outline m-4">
                         <label class="form-label" for="nome">Nome Completo</label>
-                        <input type="text" id="nome" class="form-control" required/>
+                        <input type="text" id="nome" name="nome" class="form-control" required/>
                     </div>
 
                     <div class="form-outline m-4">
-                        <label class="form-label" for="cpf">Seu CPF</label>
-                        <input type="text" id="cpf" class="form-control" required/>  
+                        <label class="form-label" for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control" required/>  
                     </div>
 
                     <div class="form-outline m-4">
-                        <label class="form-label" for="rg">Seu RG</label>
-                        <input type="text" id="rg" class="form-control" required/>               
+                        <label class="form-label" for="rg">RG</label>
+                        <input type="text" id="rg" name="rg" class="form-control" required/>               
                     </div>
 
                     <div class="form-outline m-4">
                         <label class="form-label" for="endereco">Endereço</label>
-                        <input type="text" id="endereco" class="form-control" required/>
+                        <input type="text" id="endereco" name="endereco" class="form-control" required/>
                     </div>
 
                     <div class="form-outline m-4">
                         <label class="form-label" for="cidade">Cidade</label>
-                        <input type="text" id="cidade" class="form-control" required/>
+                        <input type="text" id="cidade" name="cidade" class="form-control" required/>
                     </div>
 
                     <div class="form-outline m-4">
                         <label class="form-label" for="estado">Estado</label>
-                        <select class="custom-select" id="estado" required>
+                        <select class="custom-select" id="estado" name="estado" required>
                             <option selected>Escolher...</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
@@ -149,17 +229,17 @@
                     <!-- Email input -->
                     <div class="form-outline m-4">
                         <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" class="form-control" required/>
+                        <input type="email" id="email" name="email" class="form-control" required/>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline m-4">
                         <label class="form-label" for="senha">Senha</label>
-                        <input type="password" id="senha" class="form-control" required/>
+                        <input type="password" id="senha" name="senha" class="form-control" required/>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg m-4">Cadastrar-se</button>
+                    <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-primary btn-lg m-4">Cadastrar-se</button>
                 </form>
             
             </div>

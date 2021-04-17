@@ -19,18 +19,18 @@
         <div class="container-login">
             <div class="content-login">
                 <img  class="logo-login" src="../../assets/images/logo.png" alt="">
-                <form class="col-10 formulario">
+                <form class="col-10 formulario" method="POST" action="./authUser.php">
                 
                     <!-- Email input -->
                     <div class="form-outline m-4">
                         <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" class="form-control" required/>
+                        <input type="email" id="email" name="email" class="form-control" required/>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline m-4">
                         <label class="form-label" for="senha">Senha</label>
-                        <input type="password" id="senha" class="form-control" required/>
+                        <input type="password" id="senha" name="senha" class="form-control" required/>
                     </div>
 
                     <div class="custom-control custom-checkbox m-4">
@@ -39,7 +39,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg mb-4 mr-4 ml-4">Login</button>
+                    <button type="submit" id="btnLogar" name="btnLogar" class="btn btn-primary btn-lg mb-4 mr-4 ml-4">Login</button>
                 </form>
             </div>
         </div>
