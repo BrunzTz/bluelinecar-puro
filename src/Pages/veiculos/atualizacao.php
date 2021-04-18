@@ -19,7 +19,7 @@
 
     } else {
         header("Location: ./list.php");
-}
+    }
 ?>
 
 <!DOCTYPE html>
@@ -72,9 +72,9 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ações
-                                    </button>
+                                    </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
