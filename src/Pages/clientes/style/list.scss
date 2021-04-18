@@ -29,6 +29,20 @@
 }
 
 .fixed-button-bottom{
-    position: fixed;
+    position: relative;
     bottom: 2px;
+}
+.container{
+    height: 100vh;
+}
+
+.fixed-button-bottom2{
+    position: relative;
+    bottom: 0;
+}
+
+.formulario{
+    border-radius: 1rem;
+    border: 2px solid rgba(128, 128, 128, 0.615);
+    box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.815);
 }

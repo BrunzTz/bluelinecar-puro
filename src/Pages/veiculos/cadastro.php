@@ -34,15 +34,17 @@
         } else {
             $erro = 1;
         }
+        
 
         if (!$erro) {
             $pdo = new Connect;
-            $res = $pdo->prepare("INSERT INTO veiculo (nome_modelo, tipo, marca, ano, valor) VALUES (:n, :t, :m, :a, :v)");
+            $res = $pdo->prepare("INSERT INTO veiculo (nome_modelo, tipo, marca, ano, valor, foto) VALUES (:n, :t, :m, :a, :v, :f)");
             $res->bindValue(":n", $nome_modelo);
             $res->bindValue(":t", $tipo);
             $res->bindValue(":m", $marca);
             $res->bindValue(":a", $ano);
             $res->bindValue(":v", $valor);
+            $res->bindValue(":f", $foto);
             $res->execute();
     
             if ($res) {
@@ -66,9 +68,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../style/index/index.css">
-        <link rel="stylesheet" href="../../style/navbar/navbar.css">
-        <link rel="stylesheet" href="../../style/footer/footer.css">
+        <link rel="stylesheet" href="../../style/index/index.scss">
+        <link rel="stylesheet" href="../../style/navbar/navbar.scss">
+        <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
@@ -115,7 +117,7 @@
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="./list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Vendas</a>
+                                        <a class="dropdown-item" href="../vendas/list.php">Vendas</a>
                                     </div>
                                 </li>
                             </ul>
@@ -138,40 +140,35 @@
         <!-- Content -->
         <div class="container">
         
-        <div class="text-main size-cadastro">Cadastrar Veículo</div>
+            <div class="text-main size-cadastro">Cadastrar Veículo</div>
             
             <!-- Cadastro de Veículo -->
-            <form method="POST" action="./cadastro.php">
-                <div class="mb-3">
+            <form class="formulario" method="POST" action="./cadastro.php">
+                <div class="m-4">
                     <label for="nome_modelo" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome_modelo" name="nome_modelo" placeholder="Corolla" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="tipo" class="form-label">Tipo</label>
                     <input type="text" class="form-control" id="tipo" name="tipo" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="marca" class="form-label">Marca</label>
                     <input type="text" class="form-control" id="marca" name="marca" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="ano" class="form-label">Ano</label>
                     <input type="text" class="form-control" id="ano" name="ano" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="valor" class="form-label">Valor</label>
                     <input type="number" class="form-control" id="valor" name="valor" required>
                 </div>
 
-                <input type="submit" class="btn btn-success mb-3" value="Cadastrar" name="btnCadastrar" id="btnCadastrar">
-                <a href="./list.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
+                <input type="submit" class="btn btn-success m-4" value="Cadastrar" name="btnCadastrar" id="btnCadastrar">
+                <a href="./list.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
             </form>
 
-        </div>
-        
-        <div class="fixed-button-bottom">
-            <!-- Footer -->
-            <?php require '../../shared/footer/footer.php'; ?>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -47,9 +47,15 @@
             $erro = 1;
         }
 
+        if (isset($_REQUEST['telefone']) && !empty($_REQUEST['telefone'])) {
+            $telefone = $_REQUEST['telefone'];
+        } else {
+            $erro = 1;
+        }
+
         if (!$erro) {
             $pdo = new Connect;
-            $res = $pdo->prepare("INSERT INTO cliente (nome, cpf, rg, endereco, cidade, estado, email) VALUES (:nome, :cpf, :rg, :endereco, :cidade, :estado, :email)");
+            $res = $pdo->prepare("INSERT INTO cliente (nome, cpf, rg, endereco, cidade, estado, email, telefone) VALUES (:nome, :cpf, :rg, :endereco, :cidade, :estado, :email, :telefone)");
             $res->bindValue(":nome", $nome);
             $res->bindValue(":cpf", $cpf);
             $res->bindValue(":rg", $rg);
@@ -57,6 +63,7 @@
             $res->bindValue(":cidade", $cidade);
             $res->bindValue(":estado", $estado);
             $res->bindValue(":email", $email);
+            $res->bindValue(":telefone", $telefone);
             $res->execute();
     
             if ($res) {
@@ -78,11 +85,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../style/index/index.css">
-        <link rel="stylesheet" href="../../style/navbar/navbar.css">
-        <link rel="stylesheet" href="../../style/modelos/modelos.css">
-        <link rel="stylesheet" href="../../style/footer/footer.css">
-        <link rel="stylesheet" href="../../style/signup/userSignup.css">
+        <link rel="stylesheet" href="../../style/index/index.scss">
+        <link rel="stylesheet" href="../../style/navbar/navbar.scss">
+        <link rel="stylesheet" href="../../style/modelos/modelos.scss">
+        <link rel="stylesheet" href="../../style/footer/footer.scss">
+        <link rel="stylesheet" href="../../style/signup/userSignup.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Signup</title>
     </head>
@@ -127,7 +134,7 @@
                                         <a class="dropdown-item" href="./clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Vendas</a>
+                                        <a class="dropdown-item" href="../vendas/list.php">Vendas</a>
                                     </div>
                                 </li>
                             </ul>
@@ -218,17 +225,17 @@
                         <input type="email" id="email" name="email" class="form-control" required/>
                     </div>
 
+                    <div class="form-outline m-4">
+                        <label class="form-label" for="telefone">Telefone</label>
+                        <input type="text" id="telefone" name="telefone" class="form-control" required/>
+                    </div>
+
                     <!-- Submit button -->
-                    <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-primary btn-lg m-4">Cadastrar-se</button>
+                    <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-success btn-lg m-4">Cadastrar</button>
                 </form>
             
             </div>
         </div>
-
-        <!--footer-->
-        <?php
-            require '../../shared/footer/footer.php';
-        ?>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

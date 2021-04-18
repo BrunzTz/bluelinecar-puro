@@ -2,15 +2,19 @@
     include '../../Database/config.php';
 
     $pdo = new Connect;
-    $res = $pdo->prepare("SELECT * FROM vendedor");
+    $res = $pdo->prepare("SELECT venda.id, data_venda, veiculo.nome_modelo,
+                            ((veiculo.valor * quantidade) - ((veiculo.valor * quantidade) * desconto/100.0)) as valor_final, 
+                            cliente.nome as nome_cliente, vendedor.nome as nome_vendedor FROM venda 
+                            INNER JOIN vendedor on vendedor.codigo = codigo_vendedor 
+                            INNER JOIN cliente on cliente.id = id_cliente
+                            INNER JOIN veiculo on veiculo.id = id_veiculo");
     $res->execute();
-    $vendedores = $res->fetchAll(PDO::FETCH_ASSOC);
+    $vendas = $res->fetchAll(PDO::FETCH_ASSOC);
 
     include '../login/validateUser.php';
     ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
     session_start();
     validarList();
-
 ?>
 
 <!DOCTYPE html>
@@ -67,11 +71,11 @@
                                         Ações
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="./list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../vendas/list.php">Vendas</a>
+                                        <a class="dropdown-item" href="./list.php">Vendas</a>
                                     </div>
                                 </li>
                             </ul>
@@ -94,34 +98,38 @@
         <!-- Content -->
         <div class="container">
             
-            <!-- Listagem de Vendedores -->
-            <div class="text-main size-list">Vendedores</div>
+            <!-- Listagem de Veículos -->
+            <div class="text-main size-list">Vendas</div>
 
             <div class="button-novo-registro">
-                <a href="./cadastro.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
+                <a href="./cadastroVendas.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
             </div>
 
             <table class="table table-striped">
                 <thead class="table-primary">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">CPF</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Vendedor</th>
+                        <th scope="col">Veículo</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Valor</th>
                         <th scope="col" class="text-center" width="100">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($vendedores as $vendedor) { ?>
+                    <?php foreach ($vendas as $venda) { ?>
                         <tr>
-                            <td><?php echo $vendedor["codigo"]; ?></td>
-                            <td><?php echo $vendedor["nome"]; ?></td>
-                            <td><?php echo $vendedor["cpf"]; ?></td>
-                            <td><?php echo $vendedor["email"]; ?></td>
+                            <td><?php echo $venda["id"]; ?></td>
+                            <td><?php echo $venda["nome_cliente"]; ?></td>
+                            <td><?php echo $venda["nome_vendedor"]; ?></td>
+                            <td><?php echo $venda["nome_modelo"]; ?></td>
+                            <td><?php echo $venda["data_venda"]; ?></td>
+                            <td><?php echo 'R$ '.number_format($venda["valor_final"],2,",",".");; ?></td>
                             <td width="200">
                                 <div class="acoes-flex-button">
-                                    <?php echo "<a href='./atualizacao.php?id={$vendedor['codigo']}' class='btn btn-warning'>Atualizar</a>"; ?>
-                                    <?php echo "<a href='./exclusao.php?id={$vendedor['codigo']}' class='btn btn-danger'>Excluir</a>"; ?>
+                                    <?php echo "<a href='./atualizaVenda.php?id={$venda['id']}' class='btn btn-warning'>Atualizar</a>"; ?>
+                                    <?php echo "<a href='./excluiVendas.php?id={$venda['id']}' class='btn btn-danger'>Excluir</a>"; ?>
                                 </div>
                             </td>
                         </tr>

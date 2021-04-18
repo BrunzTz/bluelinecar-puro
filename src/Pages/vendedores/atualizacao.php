@@ -31,10 +31,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../style/index/index.css">
-        <link rel="stylesheet" href="../../style/navbar/navbar.css">
-        <link rel="stylesheet" href="../../style/footer/footer.css">
-        <link rel="stylesheet" href="style/list.scss">
+        <link rel="stylesheet" href="../../style/index/index.scss">
+        <link rel="stylesheet" href="../../style/navbar/navbar.scss">
+        <link rel="stylesheet" href="../../style/footer/footer.scss">
+        <link rel="stylesheet" href="./style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -80,7 +80,7 @@
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Vendas</a>
+                                        <a class="dropdown-item" href="../vendas/list.php">Vendas</a>
                                     </div>
                                 </li>
                             </ul>
@@ -103,36 +103,31 @@
         <!-- Content -->
         <div class="container">
         
-        <div class="text-main size-cadastro">Atualizar Vendedor</div>
+            <div class="text-main size-cadastro">Atualizar Vendedor</div>
             
             <!-- Cadastro de Vendedores -->
-            <form action="salvar.php?id=<?php echo $id; ?>" method="post">
-                <div class="mb-3">
+            <form class="formulario" action="salvar.php?id=<?php echo $id; ?>" method="post">
+                <div class="m-4">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $vendedor['nome'] ?>" placeholder="José" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="cpf" class="form-label">CPF</label>
                     <input type="text" class="form-control" id="cpf" value="<?php echo $vendedor['cpf'] ?>" name="cpf" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="senha" class="form-label">Senha</label>
                     <input type="password" class="form-control" id="senha" value="<?php echo $vendedor['senha'] ?>" name="senha" required>
                 </div>
-                <div class="mb-3">
+                <div class="m-4">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" value="<?php echo $vendedor['email'] ?>" name="email" placeholder="name@example.com" required>
                 </div>
 
-                <input type="submit" class="btn btn-success mb-3" value="Salvar" name="btnEditar" id="btnEditar">
-                <a href="./list.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
+                <input type="submit" class="btn btn-success m-4" value="Salvar" name="btnEditar" id="btnEditar">
+                <a href="./list.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
             </form>
 
-        </div>
-        
-        <div class="fixed-button-bottom">
-            <!-- Footer -->
-            <?php require '../../shared/footer/footer.php'; ?>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -6,19 +6,19 @@
         $id = $_REQUEST['id'];
 
         $pdo = new Connect;
-        $res = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
+        $res = $pdo->prepare("SELECT * FROM venda WHERE id = :id");
         $res->bindValue(":id", $id);
         $res->execute();
-        $cliente = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($cliente);
+        $venda = $res->fetch(PDO::FETCH_ASSOC);
+        print_r($venda);
 
-        if (!$cliente) {
-            echo "<p>Cliente não encontrado, volte a listagem</p>";
-            echo "<a href='./list.php'>Listagem de clientes</a>";
+        if (!$venda) {
+            echo "<p>Venda não encontrada, volte a listagem</p>";
+            echo "<a href='./list.php'>Listagem de vendas</a>";
         }
 
     } else {
-        header("Location: ./clientlist.php");
+        header("Location: ./list.php");
     }
 ?>
 
@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="../../style/index/index.scss">
         <link rel="stylesheet" href="../../style/navbar/navbar.scss">
         <link rel="stylesheet" href="../../style/footer/footer.scss">
-        <link rel="stylesheet" href="./style/list.scss">
+        <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -77,10 +77,10 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
-                                        <a class="dropdown-item" href="./clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
+                                        <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
+                                        <a class="dropdown-item" href="./list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="../vendas/list.php">Vendas</a>
+                                        <a class="dropdown-item" href="./list.php">Vendas</a>
                                     </div>
                                 </li>
                             </ul>
@@ -103,71 +103,37 @@
         <!-- Content -->
         <div class="container">
         
-            <div class="text-main size-cadastro">Atualizar Cliente</div>
+        <div class="text-main size-cadastro">Atualizar Venda</div>
             
-            <!-- Cadastro de Vendedores -->
-            <form class="formulario" action="salvarUpdate.php?id=<?php echo $id; ?>" method="post">
+            <!-- Cadastro de Veículo -->
+            <form class="formulario" action="salvarAtualizacao.php?id=<?php echo $id; ?>" method="post">
                 <div class="m-4">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $cliente['nome'] ?>" placeholder="José" required>
+                    <label for="id_cliente" class="form-label">Id Cliente</label>
+                    <input type="text" class="form-control" id="id_cliente" name="id_cliente" value="<?php echo $venda['id_cliente'] ?>" placeholder="Corolla" required>
                 </div>
                 <div class="m-4">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $cliente['cpf'] ?>" name="cpf" required>
+                    <label for="codigo_vendedor" class="form-label">Id Vendedor</label>
+                    <input type="text" class="form-control" id="codigo_vendedor" name="codigo_vendedor" value="<?php echo $venda['codigo_vendedor'] ?>" required>
                 </div>
                 <div class="m-4">
-                    <label for="rg" class="form-label">RG</label>
-                    <input type="text" class="form-control" id="rg" value="<?php echo $cliente['rg'] ?>" name="rg" required>
+                    <label for="id_veiculo" class="form-label">Id Veículo</label>
+                    <input type="text" class="form-control" id="id_veiculo" name="id_veiculo" value="<?php echo $venda['id_veiculo'] ?>" required>
                 </div>
                 <div class="m-4">
-                    <label for="endereco" class="form-label">Endereço</label>
-                    <input type="text" class="form-control" id="endereco" value="<?php echo $cliente['endereco'] ?>" name="endereco" required>
+                    <label for="quantidade" class="form-label">Quantidade de Veículos</label>
+                    <input type="text" class="form-control" id="quantidade" name="quantidade" value="<?php echo $venda['quantidade'] ?>" required>
                 </div>
                 <div class="m-4">
-                    <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" value="<?php echo $cliente['cidade'] ?>" name="cidade" required>
+                    <label for="desconto" class="form-label">Desconto</label>
+                    <input type="number" class="form-control" id="desconto" name="desconto" value="<?php echo $venda['desconto'] ?>" required>
                 </div>
                 <div class="m-4">
-                    <label class="form-label" for="estado">Estado</label>
-                    <select class="custom-select" id="estado" name="estado" required>
-                        <option selected>Escolher...</option>
-                        <option value="AC">AC</option>
-                        <option value="AL">AL</option>
-                        <option value="AP">AP</option>
-                        <option value="AM">AM</option>
-                        <option value="BA">BA</option>
-                        <option value="CE">CE</option>
-                        <option value="DF">DF</option>
-                        <option value="ES">ES</option>
-                        <option value="GO">GO</option>
-                        <option value="MA">MA</option>
-                        <option value="MT">MT</option>
-                        <option value="MS">MS</option>
-                        <option value="MG">MG</option>
-                        <option value="PA">PA</option>
-                        <option value="PB">PB</option>
-                        <option value="PR">PR</option>
-                        <option value="PE">PE</option>
-                        <option value="PI">PI</option>
-                        <option value="RJ">RJ</option>
-                        <option value="RN">RN</option>
-                        <option value="RS">RS</option>
-                        <option value="RO">RO</option>
-                        <option value="RR">RR</option>
-                        <option value="SC">SC</option>
-                        <option value="SE">SE</option>
-                        <option value="SP">SP</option>
-                        <option value="TO">TO</option>
-                    </select>
-                </div>
-                
-                <div class="m-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $cliente['email'] ?>" name="email" placeholder="name@example.com" required>
+                    <label for="data_venda" class="form-label">Data</label>
+                    <input type="text" class="form-control" id="data_venda" name="data_venda" value="<?php echo $venda['data_venda'] ?>" required>
                 </div>
 
-                <input type="submit" class="btn btn-success m-4" value="Salvar" name="btnEditarCliente" id="btnEditarCliente">
-                <a href="./clientList.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
+                <input type="submit" class="btn btn-success m-4" value="Salvar" name="btnEditar" id="btnEditar">
+                <a href="./list.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
             </form>
 
         </div>

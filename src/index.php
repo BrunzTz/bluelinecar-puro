@@ -16,10 +16,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="./style/index/index.css">
-        <link rel="stylesheet" href="./style/navbar/navbar.css">
-        <link rel="stylesheet" href="./style/modelos/modelos.css">
-        <link rel="stylesheet" href="./style/footer/footer.css">
+        <link rel="stylesheet" href="./style/index/index.scss">
+        <link rel="stylesheet" href="./style/navbar/navbar.scss">
+        <link rel="stylesheet" href="./style/modelos/modelos.scss">
+        <link rel="stylesheet" href="./style/footer/footer.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Bluelinecar</title>
     </head>
@@ -64,7 +64,7 @@
                                     <a class="dropdown-item" href="./Pages/clientes/clientList.php">Clientes</a>
                                     <a class="dropdown-item" href="./Pages/veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Vendas</a>
+                                    <a class="dropdown-item" href="./Pages/vendas/list.php">Vendas</a>
                                 </div>
                             </div>
                         </div>
