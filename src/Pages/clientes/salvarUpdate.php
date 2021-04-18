@@ -49,12 +49,6 @@ if (isset($_REQUEST['btnEditarCliente'])) {
         $erro = 1;
     }
 
-    if (isset($_REQUEST['senha']) && !empty($_REQUEST['senha'])) {
-        $senha = $_REQUEST['senha'];
-    } else {
-        $erro = 1;
-    }
-
     if (isset($_REQUEST['email']) && !empty($_REQUEST['email'])) {
         $email = $_REQUEST['email'];
     } else {
@@ -62,16 +56,14 @@ if (isset($_REQUEST['btnEditarCliente'])) {
     }
 
     if (!$erro) {
-        $res = $pdo->prepare("UPDATE cliente SET
-                                nome = :nome, cpf = :cpf, rg = :rg, endereco = :endereco, cidade = :cidade,
-                                estado = :estado, senha = :senha, email = :email WHERE id = :id");
+        $res = $pdo->prepare("UPDATE cliente SET nome = :nome, cpf = :cpf, rg = :rg, endereco = :endereco, cidade = :cidade, estado = :estado, email = :email WHERE id = :id");
+        
         $res->bindValue(":nome", $nome);
         $res->bindValue(":cpf", $cpf);
         $res->bindValue(":rg", $rg);
         $res->bindValue(":endereco", $endereco);
         $res->bindValue(":cidade", $cidade);
         $res->bindValue(":estado", $estado);
-        $res->bindValue(":senha", $senha);
         $res->bindValue(":email", $email);
         $res->bindValue(":id", $id);
         $res->execute();

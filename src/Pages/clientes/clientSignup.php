@@ -41,12 +41,6 @@
             $erro = 1;
         }
     
-        if (isset($_REQUEST['senha']) && !empty($_REQUEST['senha'])) {
-            $senha = $_REQUEST['senha'];
-        } else {
-            $erro = 1;
-        }
-    
         if (isset($_REQUEST['email']) && !empty($_REQUEST['email'])) {
             $email = $_REQUEST['email'];
         } else {
@@ -55,14 +49,13 @@
 
         if (!$erro) {
             $pdo = new Connect;
-            $res = $pdo->prepare("INSERT INTO cliente (nome, cpf, rg, endereco, cidade, estado, email, senha) VALUES (:nome, :cpf, :rg, :endereco, :cidade, :estado, :email, :senha)");
+            $res = $pdo->prepare("INSERT INTO cliente (nome, cpf, rg, endereco, cidade, estado, email) VALUES (:nome, :cpf, :rg, :endereco, :cidade, :estado, :email)");
             $res->bindValue(":nome", $nome);
             $res->bindValue(":cpf", $cpf);
             $res->bindValue(":rg", $rg);
             $res->bindValue(":endereco", $endereco);
             $res->bindValue(":cidade", $cidade);
             $res->bindValue(":estado", $estado);
-            $res->bindValue(":senha", $senha);
             $res->bindValue(":email", $email);
             $res->execute();
     
@@ -230,12 +223,6 @@
                     <div class="form-outline m-4">
                         <label class="form-label" for="email">Email</label>
                         <input type="email" id="email" name="email" class="form-control" required/>
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-outline m-4">
-                        <label class="form-label" for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" class="form-control" required/>
                     </div>
 
                     <!-- Submit button -->
