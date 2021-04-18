@@ -67,7 +67,7 @@
                                         Ações
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="./list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
                                         <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
@@ -77,17 +77,12 @@
                             </ul>
                         </div>
 
-                        <div class="btn-group mr-3" dropdown>
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <button class="btn btn-success dropdown-toggle size-button" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Login
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                                        <a class="dropdown-item" href="../login/loginUser.php">Vendedores</a>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="btn-group mr-3">
+                            <a href="../login/loginUser.php">
+                                <button class="btn btn-success size-button">
+                                    Login
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

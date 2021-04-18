@@ -76,9 +76,9 @@
                                         Ações
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="./clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="#">Veículos</a>
+                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
                                     </div>
@@ -86,7 +86,13 @@
                             </ul>
                         </div>
 
-                        <a href="../login/login.php" class="btn btn-success size-button" type="submit">Login</a>
+                        <div class="btn-group mr-3">
+                            <a href="../login/loginUser.php">
+                                <button class="btn btn-success size-button">
+                                    Login
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 

@@ -1,24 +1,59 @@
 <?php
    include '../../Database/config.php';
 
-   if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
-
-        $id = $_REQUEST['id'];
-
-        $pdo = new Connect;
-        $res = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :id");
-        $res->bindValue(":id", $id);
-        $res->execute();
-        $vendedor = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($vendedor);
-
-        if (!$vendedor) {
-            echo "<p>Vendedor não encontrado, volte a listagem</p>";
-            echo "<a href='./list.php'>Listagem de vendedores</a>";
+    if (isset($_REQUEST['btnCadastrar'])) {
+        
+        $erro = 0;
+    
+        if (isset($_REQUEST['nome_modelo']) && !empty($_REQUEST['nome_modelo'])) {
+            $nome_modelo = $_REQUEST['nome_modelo'];
+        } else {
+            $erro = 1;
+        }
+        
+        if (isset($_REQUEST['tipo']) && !empty($_REQUEST['tipo'])) {
+            $tipo = $_REQUEST['tipo'];
+        } else {
+            $erro = 1;
+        }
+    
+        if (isset($_REQUEST['marca']) && !empty($_REQUEST['marca'])) {
+            $marca = $_REQUEST['marca'];
+        } else {
+            $erro = 1;
+        }
+    
+        if (isset($_REQUEST['ano']) && !empty($_REQUEST['ano'])) {
+            $ano = $_REQUEST['ano'];
+        } else {
+            $erro = 1;
         }
 
-    } else {
-        header("Location: ./list.php");
+        if (isset($_REQUEST['valor']) && !empty($_REQUEST['valor'])) {
+            $valor = $_REQUEST['valor'];
+        } else {
+            $erro = 1;
+        }
+
+        if (!$erro) {
+            $pdo = new Connect;
+            $res = $pdo->prepare("INSERT INTO veiculo (nome_modelo, tipo, marca, ano, valor) VALUES (:n, :t, :m, :a, :v)");
+            $res->bindValue(":n", $nome_modelo);
+            $res->bindValue(":t", $tipo);
+            $res->bindValue(":m", $marca);
+            $res->bindValue(":a", $ano);
+            $res->bindValue(":v", $valor);
+            $res->execute();
+    
+            if ($res) {
+                header("Location: ./list.php");
+            } else {
+                echo "Erro ao executar o SQL";
+            }
+        } else {
+            echo "Erro nos dados. Falta algum valor";
+        }
+    
     }
 ?>
 
@@ -72,13 +107,13 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ações
-                                    </a>
+                                    </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="./list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
+                                        <a class="dropdown-item" href="./list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
                                     </div>
@@ -103,28 +138,32 @@
         <!-- Content -->
         <div class="container">
         
-        <div class="text-main size-cadastro">Atualizar Vendedor</div>
+        <div class="text-main size-cadastro">Cadastrar Veículo</div>
             
-            <!-- Cadastro de Vendedores -->
-            <form action="salvar.php?id=<?php echo $id; ?>" method="post">
+            <!-- Cadastro de Veículo -->
+            <form method="POST" action="./cadastro.php">
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $vendedor['nome'] ?>" placeholder="José" required>
+                    <label for="nome_modelo" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome_modelo" name="nome_modelo" placeholder="Corolla" required>
                 </div>
                 <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $vendedor['cpf'] ?>" name="cpf" required>
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" id="tipo" name="tipo" required>
                 </div>
                 <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" value="<?php echo $vendedor['senha'] ?>" name="senha" required>
+                    <label for="marca" class="form-label">Marca</label>
+                    <input type="text" class="form-control" id="marca" name="marca" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $vendedor['email'] ?>" name="email" placeholder="name@example.com" required>
+                    <label for="ano" class="form-label">Ano</label>
+                    <input type="text" class="form-control" id="ano" name="ano" required>
+                </div>
+                <div class="mb-3">
+                    <label for="valor" class="form-label">Valor</label>
+                    <input type="number" class="form-control" id="valor" name="valor" required>
                 </div>
 
-                <input type="submit" class="btn btn-success mb-3" value="Salvar" name="btnEditar" id="btnEditar">
+                <input type="submit" class="btn btn-success mb-3" value="Cadastrar" name="btnCadastrar" id="btnCadastrar">
                 <a href="./list.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
             </form>
 

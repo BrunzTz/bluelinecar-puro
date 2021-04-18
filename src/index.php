@@ -69,17 +69,12 @@
                             </div>
                         </div>
 
-                        <div class="btn-group mr-3" dropdown>
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="btn btn-success dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Login
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                                        <a class="dropdown-item" href="./Pages/login/loginUser.php">Vendedores</a>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="btn-group mr-3">
+                            <a href="./Pages/login/loginUser.php">
+                                <button class="btn btn-success size-button">
+                                    Login
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

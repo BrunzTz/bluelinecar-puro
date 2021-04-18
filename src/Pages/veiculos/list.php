@@ -1,25 +1,15 @@
 <?php
-   include '../../Database/config.php';
+    include '../../Database/config.php';
 
-   if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
+    $pdo = new Connect;
+    $res = $pdo->prepare("SELECT * FROM veiculo");
+    $res->execute();
+    $veiculos = $res->fetchAll(PDO::FETCH_ASSOC);
 
-        $id = $_REQUEST['id'];
-
-        $pdo = new Connect;
-        $res = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :id");
-        $res->bindValue(":id", $id);
-        $res->execute();
-        $vendedor = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($vendedor);
-
-        if (!$vendedor) {
-            echo "<p>Vendedor não encontrado, volte a listagem</p>";
-            echo "<a href='./list.php'>Listagem de vendedores</a>";
-        }
-
-    } else {
-        header("Location: ./list.php");
-    }
+    include '../login/validateUser.php';
+    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
+    session_start();
+    validarList();
 ?>
 
 <!DOCTYPE html>
@@ -72,13 +62,13 @@
                         <div class="btn-group mr-3" dropdown>
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <buton class="btn btn-primary dropdown-toggle size-button" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ações
-                                    </a>
+                                    </button>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="./list.php">Vendedores</a>
+                                        <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
+                                        <a class="dropdown-item" href="./list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Vendas</a>
                                     </div>
@@ -102,31 +92,45 @@
 
         <!-- Content -->
         <div class="container">
-        
-        <div class="text-main size-cadastro">Atualizar Vendedor</div>
             
-            <!-- Cadastro de Vendedores -->
-            <form action="salvar.php?id=<?php echo $id; ?>" method="post">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $vendedor['nome'] ?>" placeholder="José" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $vendedor['cpf'] ?>" name="cpf" required>
-                </div>
-                <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" value="<?php echo $vendedor['senha'] ?>" name="senha" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo $vendedor['email'] ?>" name="email" placeholder="name@example.com" required>
-                </div>
+            <!-- Listagem de Veículos -->
+            <div class="text-main size-list">Veículos</div>
 
-                <input type="submit" class="btn btn-success mb-3" value="Salvar" name="btnEditar" id="btnEditar">
-                <a href="./list.php"><button type="button" class="btn btn-danger mb-3">Cancelar</button></a>
-            </form>
+            <div class="button-novo-registro">
+                <a href="./cadastro.php"><button type="button" class="btn btn-success">Novo Registro</button></a>
+            </div>
+
+            <table class="table table-striped">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Ano</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col" class="text-center" width="100">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($veiculos as $veiculo) { ?>
+                        <tr>
+                            <td><?php echo $veiculo["id"]; ?></td>
+                            <td><?php echo $veiculo["nome_modelo"]; ?></td>
+                            <td><?php echo $veiculo["tipo"]; ?></td>
+                            <td><?php echo $veiculo["marca"]; ?></td>
+                            <td><?php echo $veiculo["ano"]; ?></td>
+                            <td><?php echo 'R$ '.number_format($veiculo["valor"],2,",",".");; ?></td>
+                            <td width="200">
+                                <div class="acoes-flex-button">
+                                    <?php echo "<a href='./atualizacao.php?id={$veiculo['id']}' class='btn btn-warning'>Atualizar</a>"; ?>
+                                    <?php echo "<a href='./exclusao.php?id={$veiculo['id']}' class='btn btn-danger'>Excluir</a>"; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 
         </div>
         
