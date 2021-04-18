@@ -1,7 +1,9 @@
 <?php
-   include '../../Database/config.php';
+    include '../../Database/config.php';
+    include '../login/validateUser.php';
+    validarList();
 
-   if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
+    if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
 
         $id = $_REQUEST['id'];
 
@@ -78,7 +80,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="./list.php">Veículos</a>
+                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="./list.php">Vendas</a>
                                     </div>

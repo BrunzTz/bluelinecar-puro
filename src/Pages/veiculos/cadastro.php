@@ -1,5 +1,7 @@
 <?php
-   include '../../Database/config.php';
+    include '../../Database/config.php';
+    include '../login/validateUser.php';
+    validarList();
 
     if (isset($_REQUEST['btnCadastrar'])) {
         

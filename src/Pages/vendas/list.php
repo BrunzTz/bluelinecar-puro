@@ -2,18 +2,13 @@
     include '../../Database/config.php';
 
     $pdo = new Connect;
-    $res = $pdo->prepare("SELECT venda.id, data_venda, veiculo.nome_modelo,
-                            ((veiculo.valor * quantidade) - ((veiculo.valor * quantidade) * desconto/100.0)) as valor_final, 
-                            cliente.nome as nome_cliente, vendedor.nome as nome_vendedor FROM venda 
-                            INNER JOIN vendedor on vendedor.codigo = codigo_vendedor 
-                            INNER JOIN cliente on cliente.id = id_cliente
-                            INNER JOIN veiculo on veiculo.id = id_veiculo");
+    $res = $pdo->prepare("SELECT id, data_venda, nome_modelo,
+                            ((valor_veiculo * quantidade) - ((valor_veiculo * quantidade) * desconto/100.0)) as valor_final, 
+                            nome_cliente, nome_vendedor FROM venda ");
     $res->execute();
     $vendas = $res->fetchAll(PDO::FETCH_ASSOC);
 
     include '../login/validateUser.php';
-    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
-    session_start();
     validarList();
 ?>
 

@@ -1,8 +1,6 @@
 <?php
     
     include './Pages/login/validateUser.php';
-    ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/tmp'));
-    session_start();
     validarIndex();
 
 ?>

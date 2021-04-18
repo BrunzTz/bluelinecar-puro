@@ -1,5 +1,7 @@
 <?php
-   include '../../Database/config.php';
+    include '../../Database/config.php';
+    include '../login/validateUser.php';
+    validarList();
 
     if (isset($_REQUEST['btnCadastrar'])) {
         
@@ -10,12 +12,14 @@
         } else {
             $erro = 1;
         }
+
         
         if (isset($_REQUEST['codigo_vendedor']) && !empty($_REQUEST['codigo_vendedor'])) {
             $codigo_vendedor = $_REQUEST['codigo_vendedor'];
         } else {
             $erro = 1;
         }
+
     
         if (isset($_REQUEST['quantidade']) && !empty($_REQUEST['quantidade'])) {
             $quantidade = $_REQUEST['quantidade'];
@@ -39,16 +43,36 @@
             $data_venda = $_REQUEST['data_venda'];
         } else {
             $erro = 1;
-        }
-
+        }   
+        
         if (!$erro) {
             $pdo = new Connect;
-            $res = $pdo->prepare("INSERT INTO venda (id_cliente, codigo_vendedor, id_veiculo, quantidade, desconto, data_venda) 
-            VALUES (:id_cliente, :codigo_vendedor, :id_veiculo, :quantidade, :desconto, :data_venda)");
+
+            $resvendedor = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :codigo");
+            $resvendedor->bindValue(":codigo", $codigo_vendedor);
+            $resvendedor->execute();
+            $vendedor = $resvendedor->fetch();
+
+            $rescliente = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
+            $rescliente->bindValue(":id", $id_cliente);
+            $rescliente->execute();
+            $cliente = $rescliente->fetch();
+
+            $resveiculo = $pdo->prepare("SELECT * FROM veiculo WHERE id = :id");
+            $resveiculo->bindValue(":id", $id_veiculo);
+            $resveiculo->execute();
+            $veiculo = $resveiculo->fetch();
+
+            $res = $pdo->prepare("INSERT INTO venda (id_cliente, nome_cliente, codigo_vendedor, nome_vendedor, id_veiculo, nome_modelo, quantidade, valor_veiculo, desconto, data_venda) 
+            VALUES (:id_cliente, :nome_cliente, :codigo_vendedor, :nome_vendedor, :id_veiculo, :nome_modelo, :quantidade, :valor_veiculo, :desconto, :data_venda)");
             $res->bindValue(":id_cliente", $id_cliente);
+            $res->bindValue(":nome_cliente", $cliente["nome"]);
             $res->bindValue(":codigo_vendedor", $codigo_vendedor);
+            $res->bindValue(":nome_vendedor", $vendedor["nome"]);
             $res->bindValue(":id_veiculo", $id_veiculo);
+            $res->bindValue(":nome_modelo", $veiculo["nome_modelo"]);
             $res->bindValue(":quantidade", $quantidade);
+            $res->bindValue(":valor_veiculo", $veiculo["valor"]);
             $res->bindValue(":desconto", $desconto);
             $res->bindValue(":data_venda", $data_venda);
             $res->execute();
@@ -121,7 +145,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="../vendedores/list.php">Vendedores</a>
                                         <a class="dropdown-item" href="../clientes/clientList.php">Clientes</a>
-                                        <a class="dropdown-item" href="./list.php">Veículos</a>
+                                        <a class="dropdown-item" href="../veiculos/list.php">Veículos</a>
                                     <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="./list.php">Vendas</a>
                                     </div>

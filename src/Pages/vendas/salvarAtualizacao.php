@@ -50,13 +50,43 @@ if (isset($_REQUEST['btnEditar'])) {
     }
 
     if (!$erro) {
+
+        $resvendedor = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :codigo");
+        $resvendedor->bindValue(":codigo", $codigo_vendedor);
+        $resvendedor->execute();
+        $vendedor = $resvendedor->fetch();
+
+        $rescliente = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
+        $rescliente->bindValue(":id", $id_cliente);
+        $rescliente->execute();
+        $cliente = $rescliente->fetch();
+
+        $resveiculo = $pdo->prepare("SELECT * FROM veiculo WHERE id = :id");
+        $resveiculo->bindValue(":id", $id_veiculo);
+        $resveiculo->execute();
+        $veiculo = $resveiculo->fetch();
+
+        if(!$vendedor > 0){
+            echo 'Vendedor inexistente';
+        }
+        if(!$cliente > 0){
+            echo 'Cliente inexistente';
+        }
+        if(!$veiculo > 0){
+            echo 'Veiculo inexistente';
+        }
+
         $res = $pdo->prepare("UPDATE venda SET
-                                id_cliente = :id_cliente, codigo_vendedor = :codigo_vendedor, id_veiculo = :id_veiculo, quantidade = :quantidade, 
-                                desconto = :desconto, data_venda = :data_venda WHERE id = :id");
+                                id_cliente = :id_cliente, nome_cliente = :nome_cliente, codigo_vendedor = :codigo_vendedor, nome_vendedor = :nome_vendedor, id_veiculo = :id_veiculo, nome_modelo = :nome_modelo, quantidade = :quantidade, 
+                                valor_veiculo = :valor_veiculo, desconto = :desconto, data_venda = :data_venda WHERE id = :id");
         $res->bindValue(":id_cliente", $id_cliente);
+        $res->bindValue(":nome_cliente", $cliente["nome"]);
         $res->bindValue(":codigo_vendedor", $codigo_vendedor);
-        $res->bindValue(":quantidade", $quantidade);
+        $res->bindValue(":nome_vendedor", $vendedor["nome"]);
         $res->bindValue(":id_veiculo", $id_veiculo);
+        $res->bindValue(":nome_modelo", $veiculo["nome_modelo"]);
+        $res->bindValue(":quantidade", $quantidade);
+        $res->bindValue(":valor_veiculo", $veiculo["valor"]);
         $res->bindValue(":desconto", $desconto);
         $res->bindValue(":data_venda", $data_venda);
         $res->bindValue(":id", $id);

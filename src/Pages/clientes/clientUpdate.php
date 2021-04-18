@@ -1,7 +1,9 @@
 <?php
-   include '../../Database/config.php';
+    include '../../Database/config.php';
+    include '../login/validateUser.php';
+    validarList();
 
-   if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
+    if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
 
         $id = $_REQUEST['id'];
 
