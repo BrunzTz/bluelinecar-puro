@@ -12,7 +12,7 @@
         $res->bindValue(":id", $id);
         $res->execute();
         $veiculo = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($veiculo);
+        //print_r($veiculo);
 
         if (!$veiculo) {
             echo "<p>Veículo não encontrado, volte a listagem</p>";

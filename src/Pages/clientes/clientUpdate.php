@@ -12,7 +12,7 @@
         $res->bindValue(":id", $id);
         $res->execute();
         $cliente = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($cliente);
+        //print_r($cliente);
 
         if (!$cliente) {
             echo "<p>Cliente não encontrado, volte a listagem</p>";

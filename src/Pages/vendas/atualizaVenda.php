@@ -12,7 +12,7 @@
         $res->bindValue(":id", $id);
         $res->execute();
         $venda = $res->fetch(PDO::FETCH_ASSOC);
-        print_r($venda);
+        //print_r($venda);
 
         if (!$venda) {
             echo "<p>Venda não encontrada, volte a listagem</p>";

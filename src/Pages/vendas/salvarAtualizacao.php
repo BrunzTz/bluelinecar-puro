@@ -51,42 +51,35 @@ if (isset($_REQUEST['btnEditar'])) {
 
     if (!$erro) {
 
-        $resvendedor = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :codigo");
-        $resvendedor->bindValue(":codigo", $codigo_vendedor);
-        $resvendedor->execute();
-        $vendedor = $resvendedor->fetch();
+        $teste = $pdo -> prepare("SELECT vendedor.nome as nome_vendedor, cliente.nome as nome_cliente, veiculo.nome_modelo as nome_modelo, veiculo.valor as valor
+                FROM cliente 
+                LEFT OUTER JOIN vendedor on vendedor.codigo = :codigo_vendedor
+                LEFT OUTER JOIN veiculo on veiculo.id = :id_veiculo
+                WHERE cliente.id = :id_cliente"
+        );
 
-        $rescliente = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
-        $rescliente->bindValue(":id", $id_cliente);
-        $rescliente->execute();
-        $cliente = $rescliente->fetch();
+        $teste -> bindValue(":id_cliente", $id_cliente);
+        $teste -> bindValue(":codigo_vendedor", $codigo_vendedor);
+        $teste -> bindValue(":id_veiculo", $id_veiculo);
+        $teste -> execute();
 
-        $resveiculo = $pdo->prepare("SELECT * FROM veiculo WHERE id = :id");
-        $resveiculo->bindValue(":id", $id_veiculo);
-        $resveiculo->execute();
-        $veiculo = $resveiculo->fetch();
+        $dados = $teste -> fetch();
 
-        if(!$vendedor > 0){
-            echo 'Vendedor inexistente';
-        }
-        if(!$cliente > 0){
-            echo 'Cliente inexistente';
-        }
-        if(!$veiculo > 0){
-            echo 'Veiculo inexistente';
+        if(!$dados["nome_cliente"] || !$dados["nome_vendedor"] || !$dados['nome_modelo'] || !$dados['valor']){
+            echo 'Cliente, vendedor ou veículo inexistentes';
         }
 
         $res = $pdo->prepare("UPDATE venda SET
                                 id_cliente = :id_cliente, nome_cliente = :nome_cliente, codigo_vendedor = :codigo_vendedor, nome_vendedor = :nome_vendedor, id_veiculo = :id_veiculo, nome_modelo = :nome_modelo, quantidade = :quantidade, 
                                 valor_veiculo = :valor_veiculo, desconto = :desconto, data_venda = :data_venda WHERE id = :id");
         $res->bindValue(":id_cliente", $id_cliente);
-        $res->bindValue(":nome_cliente", $cliente["nome"]);
+        $res->bindValue(":nome_cliente", $dados["nome_cliente"]);
         $res->bindValue(":codigo_vendedor", $codigo_vendedor);
-        $res->bindValue(":nome_vendedor", $vendedor["nome"]);
+        $res->bindValue(":nome_vendedor", $dados["nome_vendedor"]);
         $res->bindValue(":id_veiculo", $id_veiculo);
-        $res->bindValue(":nome_modelo", $veiculo["nome_modelo"]);
+        $res->bindValue(":nome_modelo", $dados["nome_modelo"]);
         $res->bindValue(":quantidade", $quantidade);
-        $res->bindValue(":valor_veiculo", $veiculo["valor"]);
+        $res->bindValue(":valor_veiculo", $dados["valor"]);
         $res->bindValue(":desconto", $desconto);
         $res->bindValue(":data_venda", $data_venda);
         $res->bindValue(":id", $id);
