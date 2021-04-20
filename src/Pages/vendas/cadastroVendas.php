@@ -1,4 +1,5 @@
 <?php
+
     include '../../Database/config.php';
     include '../login/validateUser.php';
     validarList();
@@ -7,15 +8,15 @@
         
         $erro = 0;
     
-        if (isset($_REQUEST['id_cliente']) && !empty($_REQUEST['id_cliente'])) {
-            $id_cliente = $_REQUEST['id_cliente'];
+        if (isset($_REQUEST['cpf_cliente']) && !empty($_REQUEST['cpf_cliente'])) {
+            $cpf_cliente = $_REQUEST['cpf_cliente'];
         } else {
             $erro = 1;
         }
 
         
-        if (isset($_REQUEST['codigo_vendedor']) && !empty($_REQUEST['codigo_vendedor'])) {
-            $codigo_vendedor = $_REQUEST['codigo_vendedor'];
+        if (isset($_REQUEST['cpf_vendedor']) && !empty($_REQUEST['cpf_vendedor'])) {
+            $cpf_vendedor = $_REQUEST['cpf_vendedor'];
         } else {
             $erro = 1;
         }
@@ -51,27 +52,31 @@
 
             $teste = $pdo -> prepare("SELECT vendedor.nome as nome_vendedor, cliente.nome as nome_cliente, veiculo.nome_modelo as nome_modelo, veiculo.valor as valor
                 FROM cliente 
-                LEFT OUTER JOIN vendedor on vendedor.codigo = :codigo_vendedor
+                LEFT OUTER JOIN vendedor on vendedor.cpf = :cpf_vendedor
                 LEFT OUTER JOIN veiculo on veiculo.id = :id_veiculo
-                WHERE cliente.id = :id_cliente"
+                WHERE cliente.cpf = :cpf_cliente"
             );
 
-            $teste -> bindValue(":id_cliente", $id_cliente);
-            $teste -> bindValue(":codigo_vendedor", $codigo_vendedor);
+            $teste -> bindValue(":cpf_cliente", $cpf_cliente);
+            $teste -> bindValue(":cpf_vendedor", $cpf_vendedor);
             $teste -> bindValue(":id_veiculo", $id_veiculo);
             $teste -> execute();
 
             $dados = $teste -> fetch();
 
-            if(!$dados["nome_cliente"] || !$dados["nome_vendedor"] || !$dados['nome_modelo'] || !$dados['valor']){
-                echo 'Cliente, vendedor ou veículo inexistentes';
+            if(!$dados["nome_cliente"]){
+                echo 'Cliente inexistente';
+            }else if(!$dados["nome_vendedor"]){
+                echo 'Vendedor inexistente';
+            }else if(!$dados['nome_modelo']){
+                echo 'Veículo inexistente';
             }
 
-            $res = $pdo->prepare("INSERT INTO venda (id_cliente, nome_cliente, codigo_vendedor, nome_vendedor, id_veiculo, nome_modelo, quantidade, valor_veiculo, desconto, data_venda) 
-            VALUES (:id_cliente, :nome_cliente, :codigo_vendedor, :nome_vendedor, :id_veiculo, :nome_modelo, :quantidade, :valor_veiculo, :desconto, :data_venda)");
-            $res->bindValue(":id_cliente", $id_cliente);
+            $res = $pdo->prepare("INSERT INTO venda (cpf_cliente, nome_cliente, cpf_vendedor, nome_vendedor, id_veiculo, nome_modelo, quantidade, valor_veiculo, desconto, data_venda) 
+            VALUES (:cpf_cliente, :nome_cliente, :cpf_vendedor, :nome_vendedor, :id_veiculo, :nome_modelo, :quantidade, :valor_veiculo, :desconto, :data_venda)");
+            $res->bindValue(":cpf_cliente", $cpf_cliente);
             $res->bindValue(":nome_cliente", $dados["nome_cliente"]);
-            $res->bindValue(":codigo_vendedor", $codigo_vendedor);
+            $res->bindValue(":cpf_vendedor", $cpf_vendedor);
             $res->bindValue(":nome_vendedor", $dados["nome_vendedor"]);
             $res->bindValue(":id_veiculo", $id_veiculo);
             $res->bindValue(":nome_modelo", $dados["nome_modelo"]);
@@ -107,7 +112,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Cadastro de vendas</title>
     </head>
 
     <body>
@@ -162,6 +167,10 @@
                                 <button class="btn btn-success size-button">
                                     Login
                                 </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
+                                </button>
                             </a>
                         </div>
                     </div>
@@ -179,12 +188,12 @@
             <!-- Cadastro de Veículo -->
             <form class="formulario" method="POST" action="./cadastroVendas.php">
                 <div class="m-4">
-                    <label for="id_cliente" class="form-label">Id Cliente</label>
-                    <input type="text" class="form-control" id="id_cliente" name="id_cliente" required>
+                    <label for="cpf_cliente" class="form-label">CPF Cliente</label>
+                    <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" required>
                 </div>
                 <div class="m-4">
-                    <label for="codigo_vendedor" class="form-label">Código Vendedor</label>
-                    <input type="text" class="form-control" id="codigo_vendedor" name="codigo_vendedor" required>
+                    <label for="cpf_vendedor" class="form-label">CPF do Vendedor</label>
+                    <input type="text" class="form-control" id="cpf_vendedor" name="cpf_vendedor" required>
                 </div>
                 <div class="m-4">
                     <label for="id_veiculo" class="form-label">Id Veículo</label>

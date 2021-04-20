@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Lista de clientes</title>
     </head>
 
     <body>
@@ -79,6 +79,10 @@
                             <a href="../login/loginUser.php">
                                 <button class="btn btn-success size-button">
                                     Login
+                                </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
                                 </button>
                             </a>
                         </div>

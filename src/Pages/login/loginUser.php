@@ -1,3 +1,13 @@
+<?php
+
+    include './validateUser.php';
+    if($_SESSION["login"]){
+        session_destroy();
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>

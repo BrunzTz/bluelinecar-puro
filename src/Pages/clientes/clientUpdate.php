@@ -38,7 +38,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="./style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Atualização de cliente</title>
     </head>
 
     <body>
@@ -93,6 +93,10 @@
                                 <button class="btn btn-success size-button">
                                     Login
                                 </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
+                                </button>
                             </a>
                         </div>
                     </div>
@@ -114,14 +118,6 @@
                     <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $cliente['nome'] ?>" placeholder="José" required>
                 </div>
                 <div class="m-4">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $cliente['cpf'] ?>" name="cpf" required>
-                </div>
-                <div class="m-4">
-                    <label for="rg" class="form-label">RG</label>
-                    <input type="text" class="form-control" id="rg" value="<?php echo $cliente['rg'] ?>" name="rg" required>
-                </div>
-                <div class="m-4">
                     <label for="endereco" class="form-label">Endereço</label>
                     <input type="text" class="form-control" id="endereco" value="<?php echo $cliente['endereco'] ?>" name="endereco" required>
                 </div>
@@ -129,38 +125,38 @@
                     <label for="cidade" class="form-label">Cidade</label>
                     <input type="text" class="form-control" id="cidade" value="<?php echo $cliente['cidade'] ?>" name="cidade" required>
                 </div>
-                <div class="m-4">
+                <div class="form-outline m-4">
                     <label class="form-label" for="estado">Estado</label>
-                    <select class="custom-select" id="estado" name="estado" required>
-                        <option selected>Escolher...</option>
-                        <option value="AC">AC</option>
-                        <option value="AL">AL</option>
-                        <option value="AP">AP</option>
-                        <option value="AM">AM</option>
-                        <option value="BA">BA</option>
-                        <option value="CE">CE</option>
-                        <option value="DF">DF</option>
-                        <option value="ES">ES</option>
-                        <option value="GO">GO</option>
-                        <option value="MA">MA</option>
-                        <option value="MT">MT</option>
-                        <option value="MS">MS</option>
-                        <option value="MG">MG</option>
-                        <option value="PA">PA</option>
-                        <option value="PB">PB</option>
-                        <option value="PR">PR</option>
-                        <option value="PE">PE</option>
-                        <option value="PI">PI</option>
-                        <option value="RJ">RJ</option>
-                        <option value="RN">RN</option>
-                        <option value="RS">RS</option>
-                        <option value="RO">RO</option>
-                        <option value="RR">RR</option>
-                        <option value="SC">SC</option>
-                        <option value="SE">SE</option>
-                        <option value="SP">SP</option>
-                        <option value="TO">TO</option>
-                    </select>
+                    <input class="custom-select" list="estado" name="estado">
+                    <datalist id="estado" name="estado" required>
+                        <option value="AC">
+                        <option value="AL">
+                        <option value="AP">
+                        <option value="AM">
+                        <option value="BA">
+                        <option value="CE">
+                        <option value="DF">
+                        <option value="ES">
+                        <option value="GO">
+                        <option value="MA">
+                        <option value="MT">
+                        <option value="MS">
+                        <option value="MG">
+                        <option value="PA">
+                        <option value="PB">
+                        <option value="PR">
+                        <option value="PE">
+                        <option value="PI">
+                        <option value="RJ">
+                        <option value="RN">
+                        <option value="RS">
+                        <option value="RO">
+                        <option value="RR">
+                        <option value="SC">
+                        <option value="SE">
+                        <option value="SP">
+                        <option value="TO">
+                    </datalist>
                 </div>
                 
                 <div class="m-4">

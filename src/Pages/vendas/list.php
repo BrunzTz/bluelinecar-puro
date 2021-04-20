@@ -2,7 +2,7 @@
     include '../../Database/config.php';
 
     $pdo = new Connect;
-    $res = $pdo->prepare("SELECT id, data_venda, nome_modelo,
+    $res = $pdo->prepare("SELECT id, data_venda, nome_modelo, quantidade, desconto,
                             ((valor_veiculo * quantidade) - ((valor_veiculo * quantidade) * desconto/100.0)) as valor_final, 
                             nome_cliente, nome_vendedor FROM venda ");
     $res->execute();
@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Lista de vendas</title>
     </head>
 
     <body>
@@ -81,6 +81,10 @@
                                 <button class="btn btn-success size-button">
                                     Login
                                 </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
+                                </button>
                             </a>
                         </div>
                     </div>
@@ -107,6 +111,8 @@
                         <th scope="col">Cliente</th>
                         <th scope="col">Vendedor</th>
                         <th scope="col">Veículo</th>
+                        <th scope="col">Unidades</th>
+                        <th scope="col">Desconto</th>
                         <th scope="col">Data</th>
                         <th scope="col">Valor</th>
                         <th scope="col" class="text-center" width="100">Ações</th>
@@ -119,6 +125,8 @@
                             <td><?php echo $venda["nome_cliente"]; ?></td>
                             <td><?php echo $venda["nome_vendedor"]; ?></td>
                             <td><?php echo $venda["nome_modelo"]; ?></td>
+                            <td><?php echo $venda["quantidade"]; ?></td>
+                            <td><?php echo $venda["desconto"]; echo'%'; ?></td>
                             <td><?php echo $venda["data_venda"]; ?></td>
                             <td><?php echo 'R$ '.number_format($venda["valor_final"],2,",",".");; ?></td>
                             <td width="200">

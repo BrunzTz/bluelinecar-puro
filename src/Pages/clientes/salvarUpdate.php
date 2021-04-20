@@ -18,18 +18,6 @@ if (isset($_REQUEST['btnEditarCliente'])) {
     } else {
         $erro = 1;
     }
-    
-    if (isset($_REQUEST['cpf']) && !empty($_REQUEST['cpf'])) {
-        $cpf = $_REQUEST['cpf'];
-    } else {
-        $erro = 1;
-    }
-
-    if (isset($_REQUEST['rg']) && !empty($_REQUEST['rg'])) {
-        $rg = $_REQUEST['rg'];
-    } else {
-        $erro = 1;
-    }
 
     if (isset($_REQUEST['endereco']) && !empty($_REQUEST['endereco'])) {
         $endereco = $_REQUEST['endereco'];
@@ -56,19 +44,28 @@ if (isset($_REQUEST['btnEditarCliente'])) {
     }
 
     if (!$erro) {
-        $res = $pdo->prepare("UPDATE cliente SET nome = :nome, cpf = :cpf, rg = :rg, endereco = :endereco, cidade = :cidade, estado = :estado, email = :email WHERE id = :id");
+        $res = $pdo->prepare("UPDATE cliente SET nome = :nome, endereco = :endereco, cidade = :cidade, estado = :estado, email = :email WHERE id = :id");
         
         $res->bindValue(":nome", $nome);
-        $res->bindValue(":cpf", $cpf);
-        $res->bindValue(":rg", $rg);
+        $res->bindValue(":id", $id);
         $res->bindValue(":endereco", $endereco);
         $res->bindValue(":cidade", $cidade);
         $res->bindValue(":estado", $estado);
         $res->bindValue(":email", $email);
-        $res->bindValue(":id", $id);
         $res->execute();
 
         if ($res) {
+
+            $teste = $pdo->prepare("SELECT * FROM cliente WHERE id = :id");
+            $teste->bindValue(":id", $id);
+            $teste->execute();
+            $cliente = $teste->fetch();
+
+            $vendas = $pdo->prepare("UPDATE venda SET nome_cliente = :nome_cliente WHERE cpf_cliente = :cpf_cliente");
+            $vendas->bindValue(":nome_cliente", $cliente["nome"]);
+            $vendas->bindValue(":cpf_cliente", $cliente["cpf"]);
+            $vendas->execute();
+
             header("Location: ./clientList.php");
         } else {
             echo "Erro ao atualizar o banco de dados";

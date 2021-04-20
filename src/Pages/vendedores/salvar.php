@@ -18,12 +18,6 @@ if (isset($_REQUEST['btnEditar'])) {
     } else {
         $erro = 1;
     }
-    
-    if (isset($_REQUEST['cpf']) && !empty($_REQUEST['cpf'])) {
-        $cpf = $_REQUEST['cpf'];
-    } else {
-        $erro = 1;
-    }
 
     if (isset($_REQUEST['senha']) && !empty($_REQUEST['senha'])) {
         $senha = $_REQUEST['senha'];
@@ -39,16 +33,26 @@ if (isset($_REQUEST['btnEditar'])) {
 
     if (!$erro) {
         $res = $pdo->prepare("UPDATE vendedor SET
-                                nome = :n, cpf = :c, senha = :s, email = :e WHERE codigo = :id");
+                                nome = :n, senha = :s, email = :e WHERE codigo = :id");
         $res->bindValue(":n", $nome);
-        $res->bindValue(":c", $cpf);
         $res->bindValue(":s", $senha);
         $res->bindValue(":e", $email);
         $res->bindValue(":id", $id);
         $res->execute();
 
         if ($res) {
-            header("Location: ./list.php");
+
+            $teste = $pdo->prepare("SELECT * FROM vendedor WHERE codigo = :id");
+            $teste->bindValue(":id", $id);
+            $teste->execute();
+            $vendedor = $teste->fetch();
+
+            $venda = $pdo->prepare("UPDATE venda SET nome_vendedor = :nome_vendedor WHERE cpf_vendedor = :cpf");
+            $venda -> bindValue(":nome_vendedor", $vendedor["nome"]);
+            $venda -> bindValue(":cpf", $vendedor["cpf"]);
+            $venda -> execute();
+
+            return header("Location: ./list.php");
         } else {
             echo "Erro ao atualizar o banco de dados";
         }

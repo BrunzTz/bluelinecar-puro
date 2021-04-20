@@ -39,7 +39,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="./style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Atualização de vendedor</title>
     </head>
 
     <body>
@@ -113,10 +113,6 @@
                 <div class="m-4">
                     <label for="nome" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $vendedor['nome'] ?>" placeholder="José" required>
-                </div>
-                <div class="m-4">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf" value="<?php echo $vendedor['cpf'] ?>" name="cpf" required>
                 </div>
                 <div class="m-4">
                     <label for="senha" class="form-label">Senha</label>

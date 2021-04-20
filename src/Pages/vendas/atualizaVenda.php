@@ -38,7 +38,7 @@
         <link rel="stylesheet" href="../../style/footer/footer.scss">
         <link rel="stylesheet" href="style/list.scss">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Bluelinecar</title>
+        <title>Bluelinecar - Atualização de venda</title>
     </head>
 
     <body>
@@ -93,6 +93,10 @@
                                 <button class="btn btn-success size-button">
                                     Login
                                 </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
+                                </button>
                             </a>
                         </div>
                     </div>
@@ -105,17 +109,17 @@
         <!-- Content -->
         <div class="container">
         
-        <div class="text-main size-cadastro">Atualizar Venda</div>
+        <div class="text-main size-cadastro">Atualizar dados da venda</div>
             
             <!-- Cadastro de Veículo -->
             <form class="formulario" action="salvarAtualizacao.php?id=<?php echo $id; ?>" method="post">
                 <div class="m-4">
-                    <label for="id_cliente" class="form-label">Id Cliente</label>
-                    <input type="text" class="form-control" id="id_cliente" name="id_cliente" value="<?php echo $venda['id_cliente'] ?>" placeholder="Corolla" required>
+                    <label for="cpf_cliente" class="form-label">CPF Cliente</label>
+                    <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="<?php echo $venda['cpf_cliente'] ?>" placeholder="Corolla" required>
                 </div>
                 <div class="m-4">
-                    <label for="codigo_vendedor" class="form-label">Id Vendedor</label>
-                    <input type="text" class="form-control" id="codigo_vendedor" name="codigo_vendedor" value="<?php echo $venda['codigo_vendedor'] ?>" required>
+                    <label for="cpf_vendedor" class="form-label">CPF do Vendedor</label>
+                    <input type="text" class="form-control" id="cpf_vendedor" name="cpf_vendedor" value="<?php echo $venda['cpf_vendedor'] ?>" required>
                 </div>
                 <div class="m-4">
                     <label for="id_veiculo" class="form-label">Id Veículo</label>
@@ -123,7 +127,7 @@
                 </div>
                 <div class="m-4">
                     <label for="quantidade" class="form-label">Quantidade de Veículos</label>
-                    <input type="text" class="form-control" id="quantidade" name="quantidade" value="<?php echo $venda['quantidade'] ?>" required>
+                    <input type="number" class="form-control" id="quantidade" name="quantidade" value="<?php echo $venda['quantidade'] ?>" required>
                 </div>
                 <div class="m-4">
                     <label for="desconto" class="form-label">Desconto</label>

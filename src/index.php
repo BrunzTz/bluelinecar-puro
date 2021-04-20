@@ -1,6 +1,7 @@
 <?php
     
     include './Pages/login/validateUser.php';
+    
     validarIndex();
 
 ?>
@@ -71,6 +72,10 @@
                             <a href="./Pages/login/loginUser.php">
                                 <button class="btn btn-success size-button">
                                     Login
+                                </button>
+
+                                <button class="btn btn-danger size-button">
+                                    Logout
                                 </button>
                             </a>
                         </div>
