@@ -133,13 +133,13 @@
                                 <a class="nav-link" href="../../index.php">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="#">Modelos</a>
+                                <a class="nav-link" href="../../index.php#modelo">Modelos</a>
                             </li>
                             <li class="nav-item mr-3">
                                 <a class="nav-link" href="#">Avaliações</a>
                             </li>
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="#">Sobre</a>
+                                <a class="nav-link" href="#">Dashboard</a>
                             </li>
                         </ul>
                     </div>
@@ -165,7 +165,7 @@
                         <div class="btn-group mr-3">
                             <a href="../login/loginUser.php">
                                 <button class="btn btn-success size-button">
-                                    Login
+                                    <?php echo $_SESSION['nome']; ?>
                                 </button>
 
                                 <button class="btn btn-danger size-button">
@@ -213,7 +213,7 @@
                 </div>
 
                 <input type="submit" class="btn btn-success m-4" value="Cadastrar" name="btnCadastrar" id="btnCadastrar">
-                <a href="./list.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
+                <button type="button" class="btn btn-danger m-4"><a href="./list.php">Cancelar</a></button>
             </form>
 
         </div>

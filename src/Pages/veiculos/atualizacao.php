@@ -59,13 +59,13 @@
                                 <a class="nav-link" href="../../index.php">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="#">Modelos</a>
+                                <a class="nav-link" href="../../index.php#modelo">Modelos</a>
                             </li>
                             <li class="nav-item mr-3">
                                 <a class="nav-link" href="#">Avaliações</a>
                             </li>
                             <li class="nav-item mr-3">
-                                <a class="nav-link" href="#">Sobre</a>
+                                <a class="nav-link" href="#">Dashboard</a>
                             </li>
                         </ul>
                     </div>
@@ -91,14 +91,13 @@
                         <div class="btn-group mr-3">
                             <a href="../login/loginUser.php">
                                 <button class="btn btn-success size-button">
-                                    Login
+                                    <?php echo $_SESSION['nome']; ?>
                                 </button>
 
                                 <button class="btn btn-danger size-button">
                                     Logout
                                 </button>
                             </a>
-
                         </div>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
         <div class="text-main size-cadastro">Atualizar Veículo</div>
             
             <!-- Cadastro de Veículo -->
-            <form class="formulario" action="salvar.php?id=<?php echo $id; ?>" method="post">
+            <form class="formulario" action="salvar.php?id=<?php echo $id; ?>" method="post"  enctype="multipart/form-data">
                 <div class="m-4">
                     <label for="nome_modelo" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="nome_modelo" name="nome_modelo" value="<?php echo $veiculo['nome_modelo'] ?>" placeholder="Corolla" required>
@@ -132,7 +131,17 @@
                 </div>
                 <div class="m-4">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="number" class="form-control" id="valor" name="valor" value="<?php echo $veiculo['valor'] ?>" required>
+                    <input type="number" class="form-control" id="valor" name="valor" value="<?php echo $veiculo['valor'] ?>"  required>
+                </div>
+                <div class="input-group px-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="text" hidden class="custom-file-input" value="<?php echo $veiculo['foto'] ?>" id="nome_bd_arquivo" name="nome_bd_arquivo">
+                        <input type="file" class="custom-file-input" id="arquivo" name="arquivo">
+                        <label class="custom-file-label" for="arquivo">Escolher arquivo</label>
+                    </div>
                 </div>
 
                 <input type="submit" class="btn btn-success m-4" value="Salvar" name="btnEditar" id="btnEditar">
