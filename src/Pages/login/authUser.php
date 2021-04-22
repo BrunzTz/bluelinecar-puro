@@ -27,7 +27,7 @@
         if (!$erro) 
         {
             $pdo = new Connect;
-            $res = $pdo->prepare("SELECT * FROM vendedor WHERE email = :email AND senha = :senha");
+            $res = $pdo->prepare("SELECT * FROM adm WHERE email = :email AND senha = :senha");
             $res->bindValue(":senha", $senha);
             $res->bindValue(":email", $email);
             $res->execute();

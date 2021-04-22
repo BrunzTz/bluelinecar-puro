@@ -3,8 +3,24 @@
     include '../../Database/config.php';
     include '../login/validateUser.php';
     validarList();
+    $pdo = new Connect;
+    
+    $vendedor_concat = $pdo -> prepare("SELECT vendedor.cpf as cpf, concat(vendedor.nome, ' - ', vendedor.cpf) as vendedor_nc from vendedor");
+    $vendedor_concat -> execute();
+    $vendedores = $vendedor_concat->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $cliente_concat = $pdo -> prepare("SELECT cliente.cpf as cpf, concat(cliente.nome, ' - ', cliente.cpf) as cliente_nc from cliente");
+    $cliente_concat -> execute();
+    $clientes = $cliente_concat->fetchAll(PDO::FETCH_ASSOC);
+
+    $veiculo_concat = $pdo -> prepare("SELECT veiculo.id as id, concat(veiculo.nome_modelo, ' - ', veiculo.id) as veiculo_in from veiculo");
+    $veiculo_concat -> execute();
+    $veiculos = $veiculo_concat->fetchAll(PDO::FETCH_ASSOC);
 
     if (isset($_REQUEST['btnCadastrar'])) {
+        
+        
         
         $erro = 0;
     
@@ -48,21 +64,21 @@
         
         if (!$erro) {
             
-            $pdo = new Connect;
+            //Aqui é para o cpf do cliente e do vendedor
 
-            $teste = $pdo -> prepare("SELECT vendedor.nome as nome_vendedor, cliente.nome as nome_cliente, veiculo.nome_modelo as nome_modelo, veiculo.valor as valor
+            $vendedor_cliente = $pdo -> prepare("SELECT vendedor.nome as nome_vendedor, cliente.nome as nome_cliente, veiculo.nome_modelo as nome_modelo, veiculo.valor as valor
                 FROM cliente 
                 LEFT OUTER JOIN vendedor on vendedor.cpf = :cpf_vendedor
                 LEFT OUTER JOIN veiculo on veiculo.id = :id_veiculo
                 WHERE cliente.cpf = :cpf_cliente"
             );
 
-            $teste -> bindValue(":cpf_cliente", $cpf_cliente);
-            $teste -> bindValue(":cpf_vendedor", $cpf_vendedor);
-            $teste -> bindValue(":id_veiculo", $id_veiculo);
-            $teste -> execute();
+            $vendedor_cliente -> bindValue(":cpf_cliente", $cpf_cliente);
+            $vendedor_cliente -> bindValue(":cpf_vendedor", $cpf_vendedor);
+            $vendedor_cliente -> bindValue(":id_veiculo", $id_veiculo);
+            $vendedor_cliente -> execute();
 
-            $dados = $teste -> fetch();
+            $dados = $vendedor_cliente -> fetch();
 
             if(!$dados["nome_cliente"]){
                 echo 'Cliente inexistente';
@@ -71,6 +87,8 @@
             }else if(!$dados['nome_modelo']){
                 echo 'Veículo inexistente';
             }
+
+            //Aqui começa o cadastro de vendas na tabela
 
             $res = $pdo->prepare("INSERT INTO venda (cpf_cliente, nome_cliente, cpf_vendedor, nome_vendedor, id_veiculo, nome_modelo, quantidade, valor_veiculo, desconto, data_venda) 
             VALUES (:cpf_cliente, :nome_cliente, :cpf_vendedor, :nome_vendedor, :id_veiculo, :nome_modelo, :quantidade, :valor_veiculo, :desconto, :data_venda)");
@@ -187,17 +205,52 @@
             
             <!-- Cadastro de Veículo -->
             <form class="formulario" method="POST" action="./cadastroVendas.php">
-                <div class="m-4">
-                    <label for="cpf_cliente" class="form-label">CPF Cliente</label>
-                    <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" required>
+
+                
+                <div class="form-outline m-4">
+                    <label for="cpf_cliente">Cliente:</label>
+
+                    <select class="custom-select" name="cpf_cliente" id="cpf_cliente">
+                        <?php
+                            foreach($clientes as $cliente){
+                                echo '<option value=';
+                                echo $cliente["cpf"];
+                                echo '>';
+                                echo $cliente["cliente_nc"];
+                                echo '</option>';
+                            }
+                        ?>
+                    </select> 
                 </div>
-                <div class="m-4">
-                    <label for="cpf_vendedor" class="form-label">CPF do Vendedor</label>
-                    <input type="text" class="form-control" id="cpf_vendedor" name="cpf_vendedor" required>
+                <div class="form-outline m-4">
+                    <label for="cpf_vendedor">Vendedor:</label>
+
+                    <select class="custom-select" name="cpf_vendedor" id="cpf_vendedor">
+                        <?php
+                            foreach($vendedores as $vendedor){
+                                echo '<option value=';
+                                echo $vendedor["cpf"];
+                                echo '>';
+                                echo $vendedor["vendedor_nc"];
+                                echo '</option>';
+                            }
+                        ?>
+                    </select> 
                 </div>
-                <div class="m-4">
-                    <label for="id_veiculo" class="form-label">Id Veículo</label>
-                    <input type="text" class="form-control" id="id_veiculo" name="id_veiculo" required>
+                <div class="form-outline m-4">
+                    <label for="id_veiculo">Veiculo:</label>
+
+                    <select class="custom-select" name="id_veiculo" id="id_veiculo">
+                        <?php
+                            foreach($veiculos as $veiculo){
+                                echo '<option value=';
+                                echo $veiculo["id"];
+                                echo '>';
+                                echo $veiculo["veiculo_in"];
+                                echo '</option>';
+                            }
+                        ?>
+                    </select> 
                 </div>
                 <div class="m-4">
                     <label for="quantidade" class="form-label">Quantidade</label>
@@ -213,7 +266,7 @@
                 </div>
 
                 <input type="submit" class="btn btn-success m-4" value="Cadastrar" name="btnCadastrar" id="btnCadastrar">
-                <button type="button" class="btn btn-danger m-4"><a href="./list.php">Cancelar</a></button>
+                <a href="./list.php"><button type="button" class="btn btn-danger m-4">Cancelar</button></a>
             </form>
 
         </div>

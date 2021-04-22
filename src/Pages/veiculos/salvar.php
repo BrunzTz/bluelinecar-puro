@@ -112,20 +112,34 @@ if (isset($_REQUEST['btnEditar'])) {
         
         $res = $pdo->prepare("UPDATE veiculo SET
                                     nome_modelo = :n, tipo = :t, marca = :m, ano = :a, valor = :v, foto = :f WHERE id = :id");
-            $res->bindValue(":n", $nome_modelo);
-            $res->bindValue(":t", $tipo);
-            $res->bindValue(":m", $marca);
-            $res->bindValue(":a", $ano);
-            $res->bindValue(":v", $valor);
-            $res->bindValue(":f", !!$nome_final ? $nome_final : $nome_bd_arquivo);
-            $res->bindValue(":id", $id);
-            $res->execute();
+        $res->bindValue(":n", $nome_modelo);
+        $res->bindValue(":t", $tipo);
+        $res->bindValue(":m", $marca);
+        $res->bindValue(":a", $ano);
+        $res->bindValue(":v", $valor);
+        $res->bindValue(":f", !!$nome_final ? $nome_final : $nome_bd_arquivo);
+        $res->bindValue(":id", $id);
+        $res->execute();
 
-            if ($res) {
-                header("Location: ./list.php");
-            } else {
-                echo "Erro ao executar o SQL";
-            }
+        if ($res) {
+
+            $veiculo = $pdo -> prepare("SELECT * FROM veiculo WHERE id = :id");
+            $veiculo -> bindValue(":id", $id);
+            $veiculo -> execute();
+            $result = $veiculo -> fetch();
+
+            $update = $pdo -> prepare("UPDATE venda SET 
+                                        nome_modelo = :nome_modelo, valor_veiculo = :valor WHERE id_veiculo = :id");
+
+            $update -> bindValue(":id", $result["id"]);
+            $update -> bindValue(":nome_modelo", $result["nome_modelo"]);
+            $update -> bindValue(":valor", $result["valor"]);
+            $update->execute();
+
+            return header("Location: ./list.php");
+        } else {
+            echo "Erro ao executar o SQL";
+        }
     } else {
         echo "Erro nos dados. Falta algum valor";
     }

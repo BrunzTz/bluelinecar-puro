@@ -3,11 +3,25 @@
     include '../login/validateUser.php';
     validarList();
 
+    $pdo = new Connect;
+    
+    $vendedor_concat = $pdo -> prepare("SELECT vendedor.cpf as cpf, concat(vendedor.nome, ' - ', vendedor.cpf) as vendedor_nc from vendedor");
+    $vendedor_concat -> execute();
+    $vendedores = $vendedor_concat->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $cliente_concat = $pdo -> prepare("SELECT cliente.cpf as cpf, concat(cliente.nome, ' - ', cliente.cpf) as cliente_nc from cliente");
+    $cliente_concat -> execute();
+    $clientes = $cliente_concat->fetchAll(PDO::FETCH_ASSOC);
+
+    $veiculo_concat = $pdo -> prepare("SELECT veiculo.id as id, concat(veiculo.nome_modelo, ' - ', veiculo.id) as veiculo_in from veiculo");
+    $veiculo_concat -> execute();
+    $veiculos = $veiculo_concat->fetchAll(PDO::FETCH_ASSOC);
+
     if (isset($_REQUEST['id']) and !empty($_REQUEST['id'])) {
 
         $id = $_REQUEST['id'];
-
-        $pdo = new Connect;
+        
         $res = $pdo->prepare("SELECT * FROM venda WHERE id = :id");
         $res->bindValue(":id", $id);
         $res->execute();
@@ -113,18 +127,7 @@
             
             <!-- Cadastro de Veículo -->
             <form class="formulario" action="salvarAtualizacao.php?id=<?php echo $id; ?>" method="post">
-                <div class="m-4">
-                    <label for="cpf_cliente" class="form-label">CPF Cliente</label>
-                    <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value="<?php echo $venda['cpf_cliente'] ?>" placeholder="Corolla" required>
-                </div>
-                <div class="m-4">
-                    <label for="cpf_vendedor" class="form-label">CPF do Vendedor</label>
-                    <input type="text" class="form-control" id="cpf_vendedor" name="cpf_vendedor" value="<?php echo $venda['cpf_vendedor'] ?>" required>
-                </div>
-                <div class="m-4">
-                    <label for="id_veiculo" class="form-label">Id Veículo</label>
-                    <input type="text" class="form-control" id="id_veiculo" name="id_veiculo" value="<?php echo $venda['id_veiculo'] ?>" required>
-                </div>
+                
                 <div class="m-4">
                     <label for="quantidade" class="form-label">Quantidade de Veículos</label>
                     <input type="number" class="form-control" id="quantidade" name="quantidade" value="<?php echo $venda['quantidade'] ?>" required>
